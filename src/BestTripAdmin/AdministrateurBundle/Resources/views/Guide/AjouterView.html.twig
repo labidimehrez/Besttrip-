@@ -1,0 +1,82 @@
+{# empty Twig template #}
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Ajouter Guide{% endblock %}
+{% block content %}
+    <label>Ajouter Guide :</label>
+{% endblock  %}
+{% block WarperContent %}
+    {% if form_errors(form.titre) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.titre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.description) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.description) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.file) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.file) }}
+        </div>
+    {% endif %}
+
+    <form method="POST" {{ form_enctype(form) }}  novalidate>
+        <label>Titre *</label>
+        {{ form_widget(form.titre) }}
+        <br>
+        <label>Description *</label>
+        {{ form_widget(form.description) }} 
+        <br>
+        <label>Lien *</label>
+        {{ form_widget(form.file) }} 
+        <br>
+        <label>Guide sure  *</label>
+        <div class="radio i-checks">
+            <label> <input type="radio" value="Pays" name="ch"  id="P"> <i></i> Pays </label>
+            <label> <input type="radio" value="Ville" name="ch"  id="V"  checked> <i></i> Ville </label>
+        </div>
+        <br>
+        <label>Pays *</label>
+        <select class="form-control m-b" name="Pays" id="Pays" style=" width: 300px;">
+            <option value="0">-- Choisir Pays --</option> 
+            {% for pay in Pays %}
+                <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+            {% endfor %}
+        </select>
+        <label id="label">Ville *</label>
+        <div class="v">
+            <select class="form-control m-b" name="Ville" id="Ville" style=" width: 300px;">
+                <option value="">-- Choisir Ville --</option> 
+            </select>
+        </div> 
+        <br>
+        {{ form(form) }}
+
+    </form>
+
+    {%block script %}
+        <script src="{{ asset('bundles/Administrateur/js/plugins/iCheck/icheck.min.js') }}"></script>
+        <script>
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+                $('#P').on('ifChecked', function (event) {
+                    $("#label").hide();
+                    $("#Ville").hide();
+                });
+                $('#V').on('ifChecked', function (event) {
+                    $("#label").show();
+                    $("#Ville").show();
+                });
+            });
+
+        </script>
+
+    {% endblock  %}
+{% endblock  %}

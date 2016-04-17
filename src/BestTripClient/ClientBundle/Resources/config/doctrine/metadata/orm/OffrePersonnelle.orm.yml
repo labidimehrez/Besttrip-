@@ -1,0 +1,90 @@
+OffrePersonnelle:
+    type: entity
+    table: offre_personnelle
+    indexes:
+        FKOffre_Pers511268:
+            columns:
+                - ID_Utilisateur
+        FKOffre_Pers685558:
+            columns:
+                - ID_Ville
+    id:
+        idOffrep:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_OffreP
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateDebut:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Debut
+        dateFin:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_fin
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Description
+        prix:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: Prix
+        contact:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Contact
+        titre:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Titre
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+        devise:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Devise
+    manyToOne:
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Ville:
+                    referencedColumnName: ID_Ville
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,39 @@
+{# empty Twig template #}
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Modifier Compagnie{% endblock %}
+{% block content %}
+    <label>Modifier Compagnie :</label>
+{% endblock  %}
+{% block WarperContent %}
+    {% if form_errors(form.nom) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.nom) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.file) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.file) }}
+        </div>
+    {% endif %}
+     {% if form_errors(form.lien) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.lien) }}
+        </div>
+    {% endif %}
+    <form novalidate method="POST" action="{{ path('administrateur_modifier_compagnie',{id:cmp.idCompagnie}) }}" {{ form_enctype(form) }} >
+        <label>Nom *</label>
+        {{ form_widget(form.nom) }}
+        <label>Type *</label>
+        {{ form_widget(form.type) }} 
+        <label>Logo *</label>
+        {{ form_widget(form.file) }} 
+        <label>Lien *</label>
+        {{ form_widget(form.lien) }} 
+        <br>
+        <br>
+        {{ form(form) }}  
+    </form>
+{% endblock  %}

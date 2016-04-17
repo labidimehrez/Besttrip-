@@ -1,0 +1,93 @@
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Authentification :</h2>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="popup-content">
+        <div id="travelo-login" class="travelo-login-box travelo-box" style="display: block;">
+            <form method="POST" novalidate>
+                        {% if form_errors(monform.nom) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button"></button>
+            {{ form_errors(monform.nom) }}
+        </div>
+        {% endif %}
+                <label>Email :</label>
+                {{ form_widget(monform.email) }}
+                <label>Mot de passe :</label>
+                {{ form_widget(monform.motDePasse) }}
+                <label>Valider mot de passe :</label>
+                <input type="password" name="VmotDePasse" class="input-text full-width">
+                <label>Type :</label>
+                {{ form_widget(monform.type) }}
+                <label class="gerant">Nom agence :</label>
+                {{ form_widget(monform.nomAgence) }}
+                <label class="gerant">Adresse :</label>
+                {{ form_widget(monform.adresse) }}
+                <label class="client">Nom :</label>
+                {{ form_widget(monform.nom) }}
+                <label class="client">Prenom :</label>
+                {{ form_widget(monform.prenom) }}
+                <label class="client">Telephone :</label>
+                {{ form_widget(monform.telephone) }}
+                <label class="client">Date naissance :</label>
+                <input type="date" name="dateNaissance" id="dateNaissance" class="input-text full-width">
+                <label class="client">Sexe :</label>
+                {{ form_widget(monform.sexe) }}
+                <label class="client">S'abbonner newslettre :</label>
+                {{ form_widget(monform.abbNewslettre) }}
+                {{ form_widget(monform) }}
+            </form>
+        </div>
+    </div>
+                
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        tjq(document).ready(function ()
+        {
+             tjq('#besttripclient_clientbundle_lieutmp_nomAgence').hide();
+                tjq('#besttripclient_clientbundle_lieutmp_adresse').hide();
+                tjq('.gerant').hide();
+            tjq('#besttripclient_clientbundle_lieutmp_type').change(function()
+            {
+                var type = tjq('#besttripclient_clientbundle_lieutmp_type').val();
+            if (type === "Client")
+            {
+                tjq('#besttripclient_clientbundle_lieutmp_nom').show();
+                tjq('#besttripclient_clientbundle_lieutmp_prenom').show();
+                tjq('#besttripclient_clientbundle_lieutmp_telephone').show();
+                tjq('#dateNaissance').show();
+                tjq('#besttripclient_clientbundle_lieutmp_sexe').show();
+                tjq('.client').show();
+                tjq('#besttripclient_clientbundle_lieutmp_abbNewslettre').show();
+                tjq('#besttripclient_clientbundle_lieutmp_nomAgence').hide();
+                tjq('#besttripclient_clientbundle_lieutmp_adresse').hide();
+                tjq('.gerant').hide();
+            }
+            else
+            {
+                tjq('#besttripclient_clientbundle_lieutmp_nom').hide();
+                tjq('#besttripclient_clientbundle_lieutmp_prenom').hide();
+                tjq('#besttripclient_clientbundle_lieutmp_telephone').hide();
+                tjq('#dateNaissance').hide();
+                tjq('#besttripclient_clientbundle_lieutmp_sexe').hide();
+                tjq('.client').hide();
+                tjq('#besttripclient_clientbundle_lieutmp_abbNewslettre').hide();
+                tjq('#besttripclient_clientbundle_lieutmp_nomAgence').show();
+                tjq('#besttripclient_clientbundle_lieutmp_adresse').show();
+                tjq('.gerant').show();
+            }
+            });
+            
+        }    
+            );
+    </script>
+{% endblock %}

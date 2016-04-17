@@ -1,0 +1,367 @@
+{# empty Twig template #}
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Ajouter un itinéraire</h2>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div id="main">
+        <div id="errors"></div>
+        <div class="tab-container full-width-style arrow-left dashboard">
+            <ul class="tabs">
+
+                <li class="active"><a data-toggle="tab" href="#travel-stories"><i class="soap-icon-conference circle"></i>Détails Générales</a></li>
+                <li class=""><a data-toggle="tab" href="#media"><i class="soap-icon-businessbag circle"></i>Images/Video</a></li>
+            </ul>
+            <form method="POST" id="itinForm" {{ form_enctype(form) }} novalidate>
+                <div class="tab-content">
+
+
+
+
+                    <div id="travel-stories" class="tab-pane fade active in">
+                        <h2>Partager Votre Experience</h2>
+                        <div class="col-sm-9 no-float no-padding">
+
+                            <div class="row form-group">
+                                <div class="col-sms-6 col-sm-6">
+                                    <h4>Titre</h4>
+                                    {{ form_widget(form.titre) }}
+                                </div>
+
+                            </div>
+                            <!--   <div class="row form-group">
+                                   <div class="col-sms-6 col-sm-6">
+                                       <label>Select Miles</label>
+                                       <div class="selector full-width">
+                                           <select>
+                                               <option>4,528 Miles</option>
+                                               <option>5,218 Miles</option>
+                                           </select><span class="custom-select">4,528 Miles</span>
+                                       </div>
+                                   </div>
+                                   <div class="col-sms-6 col-sm-6">
+                                       <label>Email Address</label>
+                                       <input type="text" class="input-text full-width">
+                                   </div>
+                               </div>-->
+                            <div class="row form-group">
+
+                                <a id="plus" class="button btn-mini sky-blue1 left" title="Ajouter autre destination" style="margin-left: 785px;"><i class="soap-icon-plus"></i></a>
+                                <a id="minus" class="button btn-mini silver left" title="Enlever autre destination" style="padding-left: 11px;"><i class="soap-icon-minus"></i></a>
+
+                            </div>
+                            <h4> Les Villes Visitées</h4>
+                            <div id="here" class="row form-group">
+
+                                <div class="col-sms-6 col-sm-6">
+
+                                    <label>Choisir Pays</label>
+
+                                    <select class="selectpicker" name="Pays" id="Pays">
+                                        <option value="">-- Choisir Pays --</option> 
+                                        {% for pay in pays %}
+                                            <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sms-6 col-sm-6">
+
+                                    <label>Choisir Villes</label>
+
+                                    <select class="form-control m-b" multiple name="Ville[]" id="Ville">
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div id="here2" class="row form-group">
+                                <div class="col-sms-6 col-sm-6">
+
+                                    <label>Choisir Pays</label>
+
+                                    <select class="selectpicker" name="Pays" id="Pays2">
+                                        <option value="">-- Choisir Pays --</option> 
+                                        {% for pay in pays %}
+                                            <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sms-6 col-sm-6">
+
+                                    <label>Choisir Villes</label>
+
+                                    <select class="form-control m-b" multiple name="Ville[]" id="Ville2">
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div id="here3" class="row form-group">
+                                <div class="col-sms-6 col-sm-6">
+
+                                    <label>Choisir Pays</label>
+
+                                    <select class="selectpicker" name="Pays" id="Pays3">
+                                        <option value="">-- Choisir Pays --</option> 
+                                        {% for pay in pays %}
+                                            <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-sms-6 col-sm-6">
+                                    <label>Choisir Villes</label>
+
+                                    <select class="form-control m-b" multiple name="Ville[]" id="Ville3">
+
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row form-group">
+                                <h4>Décrie Votre Expérience</h4>
+                                {{ form_widget(form.description) }}
+                            </div>
+                            <hr>
+                            <h4>Date Départ/Date Arrivé  </h4>
+                            <div class="row form-group">
+
+                                <div class="col-sm-6 col-sm-6" >
+                                    <label>De:</label>
+
+                                    {{ form_widget(form.dateDebut) }} 
+
+
+                                </div>
+
+                                <div class="col-sm-6 col-sm-6" >
+                                    <label>Au:</label>
+
+                                    {{ form_widget(form.dateFin) }}
+
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <h4>Dépense</h4>
+                                <p>Combien avez vous payer pour votre magnifique voyage </p>
+                                <div class="col-sm-6 no-float no-padding" style="line-height: 34px;">
+                                    {{ form_widget(form.depense) }}<select class="selector" name="devise">
+                                        <option>DT</option>
+                                        <option>Euro</option>
+                                        <option>Dollars</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <br>
+
+                        </div>
+                    </div>
+                    <div id="media" class="tab-pane fade">
+                        <h2>Partager Vos Images et Video </h2>
+                        <div class="col-sm-9 no-float no-padding">
+
+                            <div class="row form-group">
+                                <div class="col-sms-6 col-sm-6">
+                                    <h4>Images</h4>
+                                    <label title="Upload image file" for="besttripclient_clientbundle_lieutmp_attachement_file" class="btn btn-primary">
+                                        {{ form_widget(form.attachement.file, {'full_name': form.attachement.file.vars.full_name ~ '[]' }) }}  
+                                        Upload new image
+                                    </label>  
+                                    (Vous pouvez séléctionnez plusieurs photos en appuiant sur ctrl)<br>
+                                    <div class="image-box">
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--   <div class="row form-group">
+                                   <div class="col-sms-6 col-sm-6">
+                                       <label>Select Miles</label>
+                                       <div class="selector full-width">
+                                           <select>
+                                               <option>4,528 Miles</option>
+                                               <option>5,218 Miles</option>
+                                           </select><span class="custom-select">4,528 Miles</span>
+                                       </div>
+                                   </div>
+                                   <div class="col-sms-6 col-sm-6">
+                                       <label>Email Address</label>
+                                       <input type="text" class="input-text full-width">
+                                   </div>
+                               </div>-->
+
+
+
+                            <div class="form-group">
+                                <h4>Video <small>(optionel)</small></h4>
+                                {{ form_widget(form.video) }}
+                            </div>
+                            <hr>
+                            <!--   <div class="form-group">
+                                   <h4>Do you have photos to share? <small>(Optional)</small> </h4>
+                                   <div class="fileinput col-sm-6 no-float no-padding" style="line-height: 34px;">
+                                       <input type="file" class="input-text" data-placeholder="select image/s"><input type="text" class="custom-fileinput input-text" placeholder="select image/s">
+                                   </div>
+                               </div>
+                               <div class="form-group">
+                                   <h4>Share with friends <small>(Optional)</small></h4>
+                                   <p>Share your review with your friends on different social media networks.</p>
+                                   <ul class="social-icons icon-circle clearfix">
+                                       <li class="twitter"><a title="" href="#" data-toggle="tooltip" data-original-title="Twitter"><i class="soap-icon-twitter"></i></a></li>
+                                       <li class="facebook"><a title="" href="#" data-toggle="tooltip" data-original-title="Facebook"><i class="soap-icon-facebook"></i></a></li>
+                                       <li class="googleplus"><a title="" href="#" data-toggle="tooltip" data-original-title="GooglePlus"><i class="soap-icon-googleplus"></i></a></li>
+                                       <li class="pinterest"><a title="" href="#" data-toggle="tooltip" data-original-title="Pinterest"><i class="soap-icon-pinterest"></i></a></li>
+                                   </ul>
+                               </div>
+                               <br>
+                               <div class="form-group col-sm-5 col-md-4 no-float no-padding no-margin">
+                                   <button type="submit" class="btn-medium full-width">SUBMIT REVIEW</button>
+                               </div>-->
+
+                            <div class="form-group col-sm-5 col-md-4 no-float no-padding no-margin">
+                                {{ form(form) }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <style>
+        #preview{
+            width: 100px;
+            height: 100px;
+            padding-right: 10px;
+        }
+
+        .image-box{
+            display: inline-block;
+            background-color: #e7eaec;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0px;
+        }
+    </style>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{ asset('bundles/client/js/getVille.js') }}"></script>
+    <script src="{{ asset('bundles/client/js/FormValidator.js') }}"></script>
+    <script type="text/javascript">
+        tjq(document).ready(function () {
+
+            tjq(".image-box").hide();
+            var j = 1;
+            tjq('.selectpicker').selectpicker({
+                liveSearch: true
+            });
+            tjq('#minus').hide();
+            tjq('#here2').hide();
+            tjq('#here3').hide();
+            tjq('#plus').click(function () {
+                j = j + 1;
+                console.log(j);
+                var here = "#here" + j;
+                tjq('#minus').show();
+                if (j === 3) {
+                    tjq('#plus').hide();
+                    tjq('#minus').css("margin-left", "810px");
+                }
+                if (j <= 3) {
+                    tjq(here).show();
+                }
+            });
+            tjq('#minus').click(function () {
+
+
+                var here = "#here";
+                if (j === 3) {
+                    here = "#here3";
+                    tjq('#plus').show();
+                    tjq('#minus').css("margin-left", "");
+                    tjq("#Ville3").empty();
+                    tjq(here).hide();
+                    j = j - 1;
+                }
+                else if (j === 2) {
+
+                    tjq("#Ville2").empty();
+                    tjq('#minus').hide();
+                    here = "#here" + j;
+                    tjq(here).hide();
+                    j = j - 1;
+                }
+            });
+            tjq("#Pays2").change(function () {
+
+                tjq.ajax({
+                    type: 'get',
+                    //url:  'http://localhost/BestTrip/web/app_dev.php/Client/getVille/'+ tjq(this).val(),
+                    url: Routing.generate('client_getVille', {id: tjq(this).val()}),
+                    beforeSend: function () {
+                        tjq("#Ville2").empty();
+                    },
+                    success: function (json) {
+                        tjq("#Ville2").append('<option value="" disabled>-- Choisir une ville --</option>');
+                        tjq.each(json, function (index, value) {
+                            tjq("#Ville2").append('<option value="' + index + '">' + value + '</option>');
+                        });
+                    }
+                });
+
+            });
+            tjq("#Pays3").change(function () {
+
+                tjq.ajax({
+                    type: 'get',
+                    //url:  'http://localhost/BestTrip/web/app_dev.php/Client/getVille/'+ tjq(this).val(),
+                    url: Routing.generate('client_getVille', {id: tjq(this).val()}),
+                    beforeSend: function () {
+                        tjq("#Ville3").empty();
+                    },
+                    success: function (json) {
+                        tjq("#Ville3").append('<option value="" disabled>-- Choisir une ville --</option>');
+                        tjq.each(json, function (index, value) {
+                            tjq("#Ville3").append('<option value="' + index + '">' + value + '</option>');
+                        });
+                    }
+                });
+
+            });
+
+            tjq('#besttripclient_clientbundle_lieutmp_attachement_file').on('change', function (e) {
+
+                var files = e.target.files;
+                var j = 0;
+                tjq.each(files, function (i, file) {
+
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+
+                    reader.onload = function (e) {
+                        j = j + 1;
+                        var template = '<a href="#" ><img src="' + e.target.result + '" id="preview"></a>';
+
+                        tjq('.image-box').append(template);
+                    };
+                });
+                tjq('.image-box').show();
+            });
+
+        });
+    </script>
+{% endblock %}

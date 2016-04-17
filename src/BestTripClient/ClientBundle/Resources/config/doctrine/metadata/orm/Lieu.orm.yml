@@ -1,0 +1,50 @@
+Lieu:
+    type: entity
+    table: lieu
+    indexes:
+        FKLieu399976:
+            columns:
+                - ID_Ville
+    id:
+        idLieu:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Lieu
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Type
+        adresse:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Adresse
+        nom:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Nom
+    manyToOne:
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Ville:
+                    referencedColumnName: ID_Ville
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

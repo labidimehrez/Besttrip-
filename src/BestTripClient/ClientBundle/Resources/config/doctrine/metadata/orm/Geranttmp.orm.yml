@@ -1,0 +1,54 @@
+Geranttmp:
+    type: entity
+    table: geranttmp
+    uniqueConstraints:
+        EMail:
+            columns:
+                - EMail
+    id:
+        idGerant:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Gerant
+            generator:
+                strategy: IDENTITY
+    fields:
+        nomAgence:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Nom_Agence
+        adresse:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Adresse
+        logo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Logo
+        email:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: EMail
+        motDePasse:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Mot_De_Passe
+    lifecycleCallbacks: {  }

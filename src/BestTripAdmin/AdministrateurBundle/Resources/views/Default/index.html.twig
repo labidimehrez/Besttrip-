@@ -1,0 +1,14 @@
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Index{% endblock %}
+{% block content %}
+   
+{% endblock  %}
+{% block WarperContent %}
+     <div id="container" class="chart"></div>
+{% endblock  %}
+{% block script %}
+    <link href="{{ asset('bundles/administrateur/css/main.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('bundles/administrateur/js/highcharts.js') }}"></script>
+    <script src="{{ asset('bundles/administrateur/js/gray.js') }}"></script>
+    <script src="{{ asset('bundles/administrateur/js/main.js') }}"></script>
+    {% endblock %}

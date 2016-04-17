@@ -1,0 +1,30 @@
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Authentification :</h2>
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+<div class="popup-content">
+    <div id="travelo-login" class="travelo-login-box travelo-box" style="display: block;">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.message }}</div>
+    {% endif %}
+    <form action="{{ path('login_user_check') }}" method="post" enctype="multipart/form">
+        <div class="form-group">
+            <input type="email" id="username" name="_username" value="{{ last_username }}" class="input-text full-width" placeholder="Email" required="">
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="_password" class="input-text full-width" placeholder="Mot de passe" required="">
+        </div><br/>
+        <input type="submit" value="Connexion" class="btn btn-primary block full-width m-b" style="width: 100px;"/>
+    </form>
+    <p>Voulez-vous vous inscrire ? <a href="{{ path('client_ajouter_Utilisateur') }}">Inscription</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+Guide:
+    type: entity
+    table: guide
+    uniqueConstraints:
+        ID_Pays:
+            columns:
+                - ID_Pays
+        ID_Ville:
+            columns:
+                - ID_Ville
+    id:
+        idGuide:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Guide
+            generator:
+                strategy: IDENTITY
+    fields:
+        titre:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Titre
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Description
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+        lien:
+            type: string
+            nullable: false
+            length: 250
+            fixed: false
+            comment: ''
+            column: Lien
+    manyToOne:
+        idPays:
+            targetEntity: Pays
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Pays:
+                    referencedColumnName: ID_Pays
+            orphanRemoval: false
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Ville:
+                    referencedColumnName: ID_Ville
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

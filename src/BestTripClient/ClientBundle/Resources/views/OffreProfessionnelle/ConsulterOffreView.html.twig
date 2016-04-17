@@ -1,0 +1,102 @@
+{# empty Twig template #}
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Mon Offre Professionnelle détaillé</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div id="main" class="col-md-9">
+                <div class="tab-container style1" id="hotel-main-content">
+                    <ul class="tabs">
+                        <li class="active"><a data-toggle="tab" href="#photos-tab">photos</a></li>
+                        <li><a data-toggle="tab" href="#map-tab">map</a></li>
+                        <a href="{{ path('gerant_supprimer_offre',{id:offre.idOffrep}) }}" class=" button btn-small yellow  dim pull-right"><i class="fa fa-trash-o"></i>supprimer</a>
+                        <a href="{{ path('gerant_modifier_offre',{id:offre.idOffrep}) }}" class=" button btn-small sky-blue1  dim pull-right" ><i class="fa fa-wrench"></i>modifier</a>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="photos-tab" class="tab-pane fade in active">
+                            <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
+                                <ul class="slides">
+                                    {% if offre.photo=="" %}              
+                                        <li><img src="{{ asset('uploads/nondisponible.jpg') }}" alt="" width="870px" height="530px"/></li>
+                                    {% else %}
+                                        <li><img src="{{ asset('uploads/OffreProfessionnelle/'~ offre.photo) }}" alt="" width="870px" height="530px"/></li>
+                                        {% endif %}
+                                    {% for image in img %} 
+                                        <li><img src="{{ asset('uploads/Ville/'~ image.lien) }}" alt="" width="870px" height="530px"/></li>
+                                        {% endfor %} 
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="map-tab" class="tab-pane fade">
+                        </div>
+                    </div>
+                </div>
+                <div id="hotel-features" class="tab-container">
+                    <ul class="tabs">
+                        <li class="active"><a href="#hotel-description" data-toggle="tab">Information Generale</a></li>
+                        <!--  <li><a href="#hotel-write-review" data-toggle="tab"></a></li> -->
+                        <li><a href="#hotel-availability" data-toggle="tab">Description</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="hotel-description">
+                            <div class="intro table-wrapper full-width hidden-table-sms">
+                                <div class="col-sm-5 col-lg-4 features table-cell">
+                                    <ul>
+
+                                        <li><label>Dte De debut:</label>{{ offre.dateDebut|date('Y-m-d') }}</li>
+                                        <li><label>Date De Fin:</label>{{ offre.dateFin|date('Y-m-d') }}</li>  
+                                        <li><label>Prix:</label>{{ offre.prix }}-{{ offre.devise }}</li>
+                                        <li><label>Participant:</label>{{ offre.nbMax }}</li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-sm-7 col-lg-8 features table-cell ">
+                                    <ul>
+                                        <center> <li><label> Les villes à visitez :</label> 
+                                            </li>
+                                            {% for v in villes %}
+                                                <li>{{ v }}</li>
+
+                                            {% endfor %} 
+
+                                        </center> 
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="hotel-availability">           
+                            <div class="update-search clearfix" id="hotel-signaler-review">
+                                <ul>
+                                    <li> {{ offre.description|raw }} </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar col-md-3">
+                <article class="detailed-logo">
+                    <figure>
+                        <img width="114" height="85" src="{{ asset('uploads/Compagnie/'~ offre.idCompagnie.logo ) }}" alt="">
+                    </figure>
+                    <div class="details">
+                        <h2 class="box-title">{{ offre.idCompagnie.nom }}</h2>
+
+                        <div class="feedback clearfix">
+
+                            <p class="description">{{ offre.idCompagnie.type }}</p>
+
+                        </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{% endblock %}

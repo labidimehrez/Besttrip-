@@ -1,0 +1,101 @@
+Parrainage:
+    type: entity
+    table: parrainage
+    indexes:
+        FKParrainage86828:
+            columns:
+                - ID_Utilisateur
+        FKParrainage549904:
+            columns:
+                - ID_Itineraire
+        FKParrainage782477:
+            columns:
+                - ID_Compagnie
+    id:
+        idParrainage:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Parrainage
+            generator:
+                strategy: IDENTITY
+    fields:
+        prix:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: Prix
+        datedebut:
+            type: date
+            nullable: true
+            comment: ''
+            column: DateDebut
+        datefin:
+            type: date
+            nullable: true
+            comment: ''
+            column: Datefin
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Description
+        nbmax:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: NbMax
+        titre:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Titre
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+        devise:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Devise
+    manyToOne:
+        idItineraire:
+            targetEntity: Itineraire
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Itineraire:
+                    referencedColumnName: ID_Itineraire
+            orphanRemoval: false
+        idCompagnie:
+            targetEntity: Compagnie
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Compagnie:
+                    referencedColumnName: ID_Compagnie
+            orphanRemoval: false
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

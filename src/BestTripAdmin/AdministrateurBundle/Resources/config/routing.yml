@@ -1,0 +1,138 @@
+administrateur_homepage:
+    path:     /Admin
+    defaults: { _controller: AdministrateurBundle:Default:index }   
+administrateur_ajout_lieu:
+    path:     /Admin/Ajout_Lieu
+    defaults: { _controller: AdministrateurBundle:Lieu:Ajout }
+administrateur_consulter_lieu:
+    path:     /Admin/Consulter_Lieu
+    defaults: { _controller: AdministrateurBundle:Lieu:Consulter }    
+administrateur_consulter_Compagnie:
+    path:     /Admin/Consulter_Compagnie
+    defaults: { _controller: AdministrateurBundle:Compagnie:Consulter }
+administrateur_consulter_Lieutmp:
+    path:     /Admin/Consulter_LieuxTmp
+    defaults: { _controller: AdministrateurBundle:LieuTmp:Consulter }
+administrateur_supprimer_lieu:
+    path:     /Admin/supprimer_Lieu/{id}
+    defaults: { _controller: AdministrateurBundle:Lieu:Supprimer } 
+administrateur_Ignorer_lieutmp:
+    path:     /Admin/ignorer_Lieutmp/{id}
+    defaults: { _controller: AdministrateurBundle:LieuTmp:Ignorer } 
+administrateur_visualiser_lieutmp:
+    path:     /Admin/visualiser_Lieutmp/{id}
+    defaults: { _controller: AdministrateurBundle:LieuTmp:Visualiser } 
+administrateur_Accepter_lieutmp:
+    path:     /Admin/accepter_Lieutmp/{id}
+    defaults: { _controller: AdministrateurBundle:LieuTmp:Accepter } 
+administrateur_modifier_lieu:
+    path:     /Admin/modifier_Lieu/{id}
+    defaults: { _controller: AdministrateurBundle:Lieu:Modifier } 
+administrateur_supprimer_compagnie:
+    path:     /Admin/supprimer_compagnie/{id}
+    defaults: { _controller: AdministrateurBundle:Compagnie:Supprimer } 
+administrateur_modifier_compagnie:
+    path:     /Admin/modifier_compagnie/{id}
+    defaults: { _controller: AdministrateurBundle:Compagnie:Modifier } 
+administrateur_ajout_compagnie:
+    path:     /Admin/ajouter_compagnie
+    defaults: { _controller: AdministrateurBundle:Compagnie:Ajout } 
+administrateur_envoyer_newsLettre: 
+    path:  /Admin/envoyer_newsLettre 
+    defaults: { _controller: AdministrateurBundle:NewsLetter:Envoyer }
+administrateur_ajout_guide:
+    path:     /Admin/Ajout_guide
+    defaults: { _controller: AdministrateurBundle:Guide:Ajout }
+administrateur_consulter_guide:
+    path:     /Admin/Consulter_Guide
+    defaults: { _controller: AdministrateurBundle:Guide:Consulter }
+administrateur_supprimer_guide:
+    path:     /Admin/Supprimer_Guide/{id}
+    defaults: { _controller: AdministrateurBundle:Guide:Supprimer }
+administrateur_modifier_guide:
+    path:     /Admin/Modifier_Guide/{id}
+    defaults: { _controller: AdministrateurBundle:Guide:Modifier }
+administrateur_getVille:
+    path:     /Admin/getVille/{id}
+    defaults: { _controller: AdministrateurBundle:Lieu:GetVille } 
+    options:
+        expose: true
+administrateur_consulter_Signalisation_Itineraire:
+    path:     /Admin/Consulter_signalisation_itineraire
+    defaults: { _controller: AdministrateurBundle:Signalisation:ConsulterSignalisationItineraire }
+administrateur_Ignorer_Signalisation_Itineraire:
+    path:     /Admin/Ignorer_signalisation_itineraire/{id}
+    defaults: { _controller: AdministrateurBundle:Signalisation:Ignorer }
+administrateur_Supprimer_Signalisation_Itineraire:
+    path:     /Admin/Supprimer_signalisation_itineraire/{idi}
+    defaults: { _controller: AdministrateurBundle:Signalisation:SupprimerSignalisationItineraire }
+administrateur_consulter_Signalisation_Recommandation:
+    path:     /Admin/Consulter_signalisation_Recommandation
+    defaults: { _controller: AdministrateurBundle:Signalisation:ConsulterSignalisationRecommandation }
+administrateur_Ignorer_Signalisation_Recommandation:
+    path:     /Admin/Ignorer_signalisation_Recommandation/{id}
+    defaults: { _controller: AdministrateurBundle:Signalisation:IgnorerR }
+administrateur_Supprimer_Signalisation_Recommandation:
+    path:     /Admin/Supprimer_signalisation_Recommandation/{idi}
+    defaults: { _controller: AdministrateurBundle:Signalisation:SupprimerSignalisationRecommandation }
+administrateur_consulter_Signalisation_Offre:
+    path:     /Admin/Consulter_signalisation_Offre
+    defaults: { _controller: AdministrateurBundle:Signalisation:ConsulterSignalisationOffre }
+administrateur_Ignorer_Signalisation_Offre:
+    path:     /Admin/Ignorer_signalisation_Offre/{id}
+    defaults: { _controller: AdministrateurBundle:Signalisation:IgnorerO }
+administrateur_Supprimer_Signalisation_Offre:
+    path:     /Admin/Supprimer_signalisation_Offre/{idi}
+    defaults: { _controller: AdministrateurBundle:Signalisation:SupprimerSignalisationOffre }
+administrateur_video:
+    path:     /Admin/video
+    defaults: { _controller: AdministrateurBundle:Signalisation:video }
+administrateur_consulter_Geranttmp:
+    path:     /Admin/Consulter_Geranttmp
+    defaults: { _controller: AdministrateurBundle:GerantTmp:Consulter }
+administrateur_ignorer_Geranttmp:
+    path:     /Admin/ignorer_Geranttmp/{id}
+    defaults: { _controller: AdministrateurBundle:GerantTmp:Ignorer } 
+administrateur_confirmer_Geranttmp:
+    path:     /Admin/confirmer_Geranttmp/{id}
+    defaults: { _controller: AdministrateurBundle:GerantTmp:Confirmer } 
+administrateur_consulter_Utilisateur:
+    path:     /Admin/Consulter_Utilisateur
+    defaults: { _controller: AdministrateurBundle:Utilisateur:Consulter }
+administrateur_activer_Utilisateur:
+    path:     /Admin/Activer_Utilisateur/{id}
+    defaults: { _controller: AdministrateurBundle:Utilisateur:Activer }
+administrateur_desactiver_Utilisateur:
+    path:     /Admin/Desactiver_Utilisateur/{id}
+    defaults: { _controller: AdministrateurBundle:Utilisateur:Desactiver }
+login:
+    path:     /Admin/login
+    defaults: { _controller: AdministrateurBundle:Administrateur:login }
+login_check:
+    pattern:   /Admin/login_check
+logout:
+    pattern:   /Admin/logout
+admin_notif:
+    path:     /Admin/Notification
+    defaults: { _controller: AdministrateurBundle:Default:getSignalisation }
+    options:
+        expose: true
+admin_stat:
+    path:     /Admin/statistique_all
+    defaults: { _controller: AdministrateurBundle:Statistique:getAll }
+    options:
+        expose: true
+admin_notif_gerant:
+    path:     /Admin/NotificationGerant
+    defaults: { _controller: AdministrateurBundle:Default:getNotif }
+    options:
+        expose: true
+admin_notif_lieu:
+    path:     /Admin/NotificationLieu
+    defaults: { _controller: AdministrateurBundle:Default:getNotifLieu }
+    options:
+        expose: true
+admin_statistique:
+    path:     /Admin/Statistique
+    defaults: { _controller: AdministrateurBundle:Statistique:chart }
+    

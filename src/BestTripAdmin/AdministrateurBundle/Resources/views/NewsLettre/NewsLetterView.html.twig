@@ -1,0 +1,88 @@
+{# empty Twig template #}
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Envoyer News Lettre{% endblock %}
+{% block content %}
+    <label>Envoyer News Lettre :</label>
+{% endblock  %}
+{% block WarperContent %}
+    <link href="{{ asset('bundles/Administrateur/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/css/plugins/summernote/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/css/plugins/summernote/summernote-bs3.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/css/style.css') }}" rel="stylesheet">
+    <div class="pace-activity" ></div>
+    <div id="wrapper">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-9 animated fadeInRight">
+                    <div class="mail-box-header">
+                        <h2>
+                            Composer votre email
+                        </h2>
+                    </div>
+                    <div class="mail-box">
+                        <div class="mail-body">
+                            <form class="form-horizontal" method="POST" enctype="multipart/form-data">   
+                                <div class="form-group"><label class="col-sm-2 control-label">À : </label>
+                                    <div class="radio i-checks">
+                                        <label> <input type="radio" value="Tous" name="destination"  id="all"> <i></i> Tous </label>
+                                        <label> <input type="radio" value="Clients" name="destination" id="clients"> <i></i> Clients </label>
+                                        <label> <input type="radio" value="Gerants" name="destination" id="gerants"> <i></i> Gerants </label>
+                                        <label> <input type="radio" value="Gerant" name="destination" checked id="gerant"> <i></i> Gerant </label>
+                                        <select name="select" id="btn_check_id" >
+                                            {% for us in lgerants %}
+                                                <option value="{{ us.email }}"> {{ us.nomAgence }} </option> 
+                                            {% endfor %}
+                                        </select>
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="form-group"><label class="col-sm-2 control-label">Objet : </label>
+                                        <div class="col-sm-10"><input type="text" class="form-control" name="sujet"></div>
+                                    </div>
+                                </div>
+                                <div class="mail-text h-200">
+                                    <textarea class="ckeditor" name="mymessage"></textarea>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="mail-body text-right tooltip-demo">
+                                    <input type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="envoyer" data-original-title="Send" name="envoyer" value="envoyer"/> 
+                                </div>  
+                                <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    {%block script %}
+        <script src="{{ asset('bundles/Administrateur/ckeditor/ckeditor.js') }}"></script>
+        <!-- iCheck -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/iCheck/icheck.min.js') }}"></script>
+        <script>
+            $(document).ready(function () {
+                $('.i-checks').iCheck({
+                    checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+                });
+                $('#gerant').on('ifChecked', function (event) {
+                    
+                    $("#btn_check_id").show();
+                });
+                $('#gerants').on('ifChecked', function (event) {
+                    $("#btn_check_id").hide();
+                });
+                $('#clients').on('ifChecked', function (event) {
+                    $("#btn_check_id").hide();
+                });
+                $('#all').on('ifChecked', function (event) {
+                    $("#btn_check_id").hide();
+                });
+            });
+        </script>
+    {% endblock  %}
+{% endblock %}

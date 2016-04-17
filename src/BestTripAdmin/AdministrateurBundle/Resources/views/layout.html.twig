@@ -1,0 +1,873 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html>
+    <!-- Mirrored from webapplayers.com/inspinia_admin-v1.9.2/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Mar 2015 12:28:59 GMT -->
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{% block title %}Admin-{% endblock %}</title>
+
+        <link href="{{ asset('bundles/Administrateur/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/Administrateur/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+
+        <!-- Toastr style -->
+        <link href="{{ asset('bundles/Administrateur/css/plugins/toastr/toastr.min.css') }}" rel="stylesheet">
+
+        <!-- Gritter -->
+        <link href="{{ asset('bundles/Administrateur/js/plugins/gritter/jquery.gritter.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/Administrateur/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/Administrateur/css/animate.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/Administrateur/css/style.css') }}" rel="stylesheet">
+        <!-- Data Tables -->
+        <link href="{{ asset('bundles/Administrateur/css/plugins/dataTables/dataTables.bootstrap.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/Administrateur/css/plugins/dataTables/dataTables.responsive.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/Administrateur/css/plugins/dataTables/dataTables.tableTools.min.css') }}" rel="stylesheet">
+
+
+    </head>
+
+    <body >
+        <div id="wrapper">
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="nav-header">
+                            <div class="dropdown profile-element"> <span>
+                                    <img alt="image" class="img-circle" src="{{ asset('bundles/administrateur/img/profile_small.jpg') }}" />
+                                </span>
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Success Members</strong>
+                                        </span> <span class="text-muted text-xs block">Best Trip <b class="caret"></b></span> </span> </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    <li><a href="{{ path('administrateur_homepage') }}">Accueil</a></li>
+
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                                </ul>
+                            </div>
+                            <div class="logo-element">
+                                BT
+                            </div>
+                        </li>
+                        <li {% if app.request.attributes.get('_route') == 'administrateur_consulter_Geranttmp' or app.request.attributes.get('_route') == 'administrateur_consulter_Utilisateur' %} class="active" {% endif %}>
+                            <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Gestion Utilisateur</span> <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {% if app.request.attributes.get('_route') == 'administrateur_consulter_Geranttmp' %} class="active" {% endif %}><a href="{{ path('administrateur_consulter_Geranttmp') }}">Valider Compte Gérant</a></li>
+                                <li{% if app.request.attributes.get('_route') == 'administrateur_consulter_Utilisateur' %} class="active" {% endif %}><a href="{{ path('administrateur_consulter_Utilisateur') }}">Gérer Comptes Utilisateurs</a></li>
+                            </ul>
+                        </li>
+
+                        <li {% if app.request.attributes.get('_route') == 'administrateur_ajout_guide' or app.request.attributes.get('_route') == 'administrateur_consulter_guide' %} class="active" {% endif %}>
+                            <a href="#"><i class="fa fa-file-text-o"></i> <span class="nav-label">Gestion Guides</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {% if app.request.attributes.get('_route') == 'administrateur_consulter_guide' %} class="active" {% endif %}><a href="{{ path('administrateur_consulter_guide') }}">Consulter Guides</a></li>
+                                <li {% if app.request.attributes.get('_route') == 'administrateur_ajout_guide' %} class="active" {% endif %}><a href="{{ path('administrateur_ajout_guide') }}">Ajouter Guide</a></li>
+                            </ul>
+                        </li>
+                        <li {% if (app.request.attributes.get('_route') == 'administrateur_ajout_lieu') or  (app.request.attributes.get('_route') == 'administrateur_consulter_lieu') or (app.request.attributes.get('_route') == 'administrateur_consulter_Lieutmp') or (app.request.attributes.get('_route') == 'administrateur_visualiser_lieutmp') or (app.request.attributes.get('_route') == 'administrateur_modifier_lieu') %} class="active" {% endif %}>
+                            <a href="#"><i class="fa fa-globe"></i> <span class="nav-label">Gestion Lieux</span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {% if (app.request.attributes.get('_route') == 'administrateur_consulter_lieu') or (app.request.attributes.get('_route') == 'administrateur_modifier_lieu') %} class="active" {% endif %}
+                                                                                                                                                                                                   >
+                                    <a href="{{ path('administrateur_consulter_lieu') }}">Consulter Lieux</a></li>
+                                <li 
+                                    {% if app.request.attributes.get('_route') == 'administrateur_ajout_lieu' %} class="active" {% endif %}
+                                    ><a href="{{ path('administrateur_ajout_lieu') }}" >Ajouter Lieux</a></li>
+                                <li 
+                                    {% if app.request.attributes.get('_route') == 'administrateur_consulter_Lieutmp' or app.request.attributes.get('_route') == 'administrateur_visualiser_lieutmp' %} class="active" {% endif %}
+                                    ><a href="{{ path('administrateur_consulter_Lieutmp') }}" >Valider Lieux</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                        <li {% if app.request.attributes.get('_route') == 'administrateur_ajout_compagnie' or app.request.attributes.get('_route') == 'administrateur_consulter_Compagnie' or app.request.attributes.get('_route') == 'administrateur_modifier_compagnie' %} class="active" {% endif %}>
+
+                            <a><i class="fa fa-plane"></i> <span class="nav-label">Gestion Compagnies </span><span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li{% if app.request.attributes.get('_route') == 'administrateur_consulter_Compagnie'  or app.request.attributes.get('_route') == 'administrateur_modifier_compagnie' %} class="active" {% endif %}><a href="{{ path('administrateur_consulter_Compagnie') }}">Consulter Compagnies</a></li>
+                                <li{% if app.request.attributes.get('_route') == 'administrateur_ajout_compagnie' %} class="active" {% endif %}><a href="{{ path('administrateur_ajout_compagnie') }}">Ajouter Compagnies</a></li>
+
+                            </ul>
+                        </li>
+
+                        <li {% if (app.request.attributes.get('_route') == 'administrateur_consulter_Signalisation_Itineraire') or  (app.request.attributes.get('_route') == 'administrateur_consulter_Signalisation_Offre') or  (app.request.attributes.get('_route') == 'administrateur_consulter_Signalisation_Recommandation') %} class="active" {% endif %}>
+                            <a ><i class="fa fa-rss"></i> <span class="nav-label">Gestion Signalisation</span><span class="fa arrow"></span> </a>
+                            <ul class="nav nav-second-level">
+                                <li {% if app.request.attributes.get('_route') == 'administrateur_consulter_Signalisation_Itineraire' %} class="active" {% endif %} ><a href="{{ path('administrateur_consulter_Signalisation_Itineraire') }}">Itinéraires</a></li>
+                                <li {% if app.request.attributes.get('_route') == 'administrateur_consulter_Signalisation_Offre' %} class="active" {% endif %} ><a href="{{ path('administrateur_consulter_Signalisation_Offre') }}">Offres Personnelles</a></li>
+                                <li {% if app.request.attributes.get('_route') == 'administrateur_consulter_Signalisation_Recommandation' %} class="active" {% endif %} ><a href="{{ path('administrateur_consulter_Signalisation_Recommandation') }}">Recommandations</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li {% if app.request.attributes.get('_route') == 'admin_statistique' %} class="active" {% endif %}>
+                            <a href="{{ path('admin_statistique') }}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Statistiques</span></a>
+                        </li>
+                        <li {% if app.request.attributes.get('_route') == 'administrateur_envoyer_newsLettre' %} class="active" {% endif %}>
+                            <a href="{{ path('administrateur_envoyer_newsLettre') }}"><i class="fa fa-envelope-o"></i> <span class="nav-label">NewsLettres</span></a></li>
+                    </ul>
+
+                </div>
+            </nav>
+
+            <div id="page-wrapper" class="gray-bg dashbard-1">
+                <div class="row border-bottom">
+                    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                        <div class="navbar-header">
+
+                        </div>
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <span class="m-r-sm text-muted welcome-message">Bienvenue à votre interface administrative.</span>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-globe"></i>  <span id="lieu" class="label label-primary"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-alerts">
+                                    <li>
+                                        <a href="{{ path('administrateur_consulter_Lieutmp') }}">
+                                            <div id="lienLieu">
+
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-user"></i>  <span id="gerant" class="label label-warning"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-alerts">
+                                    <li>
+                                        <a href="{{ path('administrateur_consulter_Geranttmp') }}">
+                                            <div id="lienGerant">
+
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-bell"></i>  <span class="label label-danger" id="total"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-alerts">
+                                    <li>
+                                        <a href="{{ path('administrateur_consulter_Signalisation_Itineraire') }}">
+                                            <div id="iti">
+
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ path('administrateur_consulter_Signalisation_Recommandation') }}">
+                                            <div id="rec">
+
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="{{ path('administrateur_consulter_Signalisation_Offre') }}">
+                                            <div id="offre">
+
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                    <li>
+
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                            <li>
+                                <a href="{{ path('logout') }}">
+                                    <i class="fa fa-sign-out"></i> Déconnexion
+                                </a>
+                            </li>
+                        </ul>
+
+                                    
+                                    
+                                    <ul class="nav navbar-top-links navbar-left">
+                            
+                             <br>
+
+                             <table>
+                                            <tr>
+                                           
+                                                <td>
+                                 <a class="fb-share-button"  data-href="http://localhost/BestTripWEB/web/app_dev.php/Client" data-layout="button_count"></a> 
+                                                </td>
+                                            </tr><tr>
+                                            
+                                                <td><br>
+                      <a href="https://twitter.com/share"  class="twitter-share-button" data-url="http://localhost/BestTripWEB/web/app_dev.php/Client" data-via="BestTripEsprit" data-lang="fr" ></a>
+                                                </td>
+                                          
+                                            </tr>
+                                        </table>
+                                
+                        </ul>
+                                    
+                                    
+                                    
+                                    
+                    </nav>
+                </div>
+
+                <div class="row  border-bottom white-bg dashboard-header">
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="wrapper wrapper-content">
+                            {% block WarperContent %}
+
+                            {% endblock %}
+                        </div>
+                        <div class="footer fixed">
+                            <div class="pull-right">
+                                10GB of <strong>250GB</strong> 
+                            </div>
+                            <div>
+                                <strong>Copyright</strong> Success Members &copy; 2014-2015
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="theme-config">
+            <div class="theme-config-box">
+                <div class="spin-icon">
+                    <i class="fa fa-cogs fa-spin"></i>
+                </div>
+                <div class="skin-setttings">
+                    <div class="title">Configuration</div>
+                    <div class="setings-item">
+                        <span>
+                            Collapse menu
+                        </span>
+
+                        <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="collapsemenu">
+                                <label class="onoffswitch-label" for="collapsemenu">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setings-item">
+                        <span>
+                            Fixed sidebar
+                        </span>
+
+                        <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="fixedsidebar" class="onoffswitch-checkbox" id="fixedsidebar">
+                                <label class="onoffswitch-label" for="fixedsidebar">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setings-item">
+                        <span>
+                            Top navbar
+                        </span>
+
+                        <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="fixednavbar" class="onoffswitch-checkbox" id="fixednavbar">
+                                <label class="onoffswitch-label" for="fixednavbar">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setings-item">
+                        <span>
+                            Boxed layout
+                        </span>
+
+                        <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
+                                <label class="onoffswitch-label" for="boxedlayout">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setings-item">
+                        <span>
+                            Fixed footer
+                        </span>
+
+                        <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="fixedfooter" class="onoffswitch-checkbox" id="fixedfooter">
+                                <label class="onoffswitch-label" for="fixedfooter">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="title">Skins</div>
+                    <div class="setings-item default-skin">
+                        <span class="skin-name ">
+                            <a href="#" class="s-skin-0">
+                                Default
+                            </a>
+                        </span>
+                    </div>
+                    <div class="setings-item blue-skin">
+                        <span class="skin-name ">
+                            <a href="#" class="s-skin-1">
+                                Blue light
+                            </a>
+                        </span>
+                    </div>
+                    <div class="setings-item yellow-skin">
+                        <span class="skin-name ">
+                            <a href="#" class="s-skin-3">
+                                Yellow/Purple
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mainly scripts -->
+        <script src="{{ asset('bundles/Administrateur/js/jquery-2.1.1.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+        <!-- Flot -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/flot/jquery.flot.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/flot/jquery.flot.tooltip.min.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/flot/jquery.flot.spline.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/flot/jquery.flot.resize.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/flot/jquery.flot.pie.js') }}"></script>
+
+        <!-- Peity -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/peity/jquery.peity.min.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/demo/peity-demo.js') }}"></script>
+
+        <!-- Custom and plugin javascript -->
+        <script src="{{ asset('bundles/Administrateur/js/inspinia.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/pace/pace.min.js') }}"></script>
+
+        <!-- jQuery UI -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+
+        <!-- GITTER -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/gritter/jquery.gritter.min.js') }}"></script>
+
+        <!-- Sparkline -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
+        <!-- Sparkline demo data  -->
+        <script src="{{ asset('bundles/Administrateur/js/demo/sparkline-demo.js') }}"></script>
+
+        <!-- ChartJS-->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/chartJs/Chart.min.js') }}"></script>
+
+        <!-- Toastr -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/toastr/toastr.min.js') }}"></script>
+
+
+        <!-- Custom and plugin javascript -->
+        <script src="{{ asset('bundles/Administrateur/js/inspinia.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/pace/pace.min.js') }}"></script>
+
+        <!-- Jquery Validate -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/validate/jquery.validate.min.js') }}"></script>
+
+        <!-- Data Tables -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/dataTables/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/dataTables/dataTables.bootstrap.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/dataTables/dataTables.responsive.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/dataTables/dataTables.tableTools.min.js') }}"></script>
+
+
+        <!-- image crooper -->
+        <script src="{{ asset('bundles/Administrateur/js/plugins/cropper/cropper.min.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/plugins/chosen/chosen.jquery.js') }}"></script>
+        <!-- Success Membre JS -->
+        <script src="{{ asset('bundles/Administrateur/js/getVille.js') }}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/notif.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/notifGerant.js') }}"></script>
+        <script src="{{ asset('bundles/Administrateur/js/notifLieu.js') }}"></script>
+    <script src="{{ asset('bundles/Administrateur/js/bootstrap-filestyle.js') }}"></script>
+        {% block script %}
+        {% endblock %}
+        
+        
+          <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+       
+        <script>
+!function(d,s,id)
+{var js,fjs=d.getElementsByTagName(s)[0]
+,p=/^http:/.test(d.location)?'http':'https';
+if(!d.getElementById(id)){js=d.createElement(s);
+js.id=id;js.src=p+'://platform.twitter.com/widgets.js';
+fjs.parentNode.insertBefore(js,fjs);
+}}
+(document, 'script', 'twitter-wjs');
+</script>
+        
+        
+        <script>
+            $(document).ready(function () {
+                $('.dataTables-example').dataTable({
+                    responsive: true,
+                    "dom": 'T<"clear">lfrtip',
+                    "tableTools": {
+                        "sSwfPath": "{{ asset('bundles/Administrateur/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf') }}"
+                    }
+                });
+
+                /* Init DataTables */
+                var oTable = $('#editable').dataTable();
+
+                /* Apply the jEditable handlers to the table */
+                oTable.$('td').editable('http://webapplayers.com/example_ajax.php', {
+                    "callback": function (sValue, y) {
+                        var aPos = oTable.fnGetPosition(this);
+                        oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                    },
+                    "submitdata": function (value, settings) {
+                        return {
+                            "row_id": this.parentNode.getAttribute('id'),
+                            "column": oTable.fnGetPosition(this)[2]
+                        };
+                    },
+                    "width": "90%",
+                    "height": "100%"
+                });
+
+
+            });
+
+            function fnClickAddRow() {
+                $('#editable').dataTable().fnAddData([
+                    "Custom row",
+                    "New row",
+                    "New row",
+                    "New row",
+                    "New row"]);
+
+            }
+        </script>
+
+        <script>
+            $(document).ready(function () {
+            {% if app.request.attributes.get('_route') == 'administrateur_homepage' %}
+                    setTimeout(function () {
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 400000
+                        };
+                        toastr.success('Responsive Admin Theme', 'Bienvenu à BestTrip Adminstration');
+
+                    }, 1300);
+            {% endif %}
+
+
+                    var data1 = [
+                        [0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11], [10, 30], [11, 10], [12, 13], [13, 4], [14, 3], [15, 3], [16, 6]
+                    ];
+                    var data2 = [
+                        [0, 1], [1, 0], [2, 2], [3, 0], [4, 1], [5, 3], [6, 1], [7, 5], [8, 2], [9, 3], [10, 2], [11, 1], [12, 0], [13, 2], [14, 8], [15, 0], [16, 0]
+                    ];
+                    $("#flot-dashboard-chart").length && $.plot($("#flot-dashboard-chart"), [
+                        data1, data2
+                    ],
+                            {
+                                series: {
+                                    lines: {
+                                        show: false,
+                                        fill: true
+                                    },
+                                    splines: {
+                                        show: true,
+                                        tension: 0.4,
+                                        lineWidth: 1,
+                                        fill: 0.4
+                                    },
+                                    points: {
+                                        radius: 0,
+                                        show: true
+                                    },
+                                    shadowSize: 2
+                                },
+                                grid: {
+                                    hoverable: true,
+                                    clickable: true,
+                                    tickColor: "#d5d5d5",
+                                    borderWidth: 1,
+                                    color: '#d5d5d5'
+                                },
+                                colors: ["#1ab394", "#464f88"],
+                                xaxis: {
+                                },
+                                yaxis: {
+                                    ticks: 4
+                                },
+                                tooltip: false
+                            }
+                    );
+
+                    var doughnutData = [
+                        {
+                            value: 300,
+                            color: "#a3e1d4",
+                            highlight: "#1ab394",
+                            label: "App"
+                        },
+                        {
+                            value: 50,
+                            color: "#dedede",
+                            highlight: "#1ab394",
+                            label: "Software"
+                        },
+                        {
+                            value: 100,
+                            color: "#b5b8cf",
+                            highlight: "#1ab394",
+                            label: "Laptop"
+                        }
+                    ];
+
+                    var doughnutOptions = {
+                        segmentShowStroke: true,
+                        segmentStrokeColor: "#fff",
+                        segmentStrokeWidth: 2,
+                        percentageInnerCutout: 45, // This is 0 for Pie charts
+                        animationSteps: 100,
+                        animationEasing: "easeOutBounce",
+                        animateRotate: true,
+                        animateScale: false,
+                    };
+
+                    var ctx = document.getElementById("doughnutChart").getContext("2d");
+                    var DoughnutChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
+
+                    var polarData = [
+                        {
+                            value: 300,
+                            color: "#a3e1d4",
+                            highlight: "#1ab394",
+                            label: "App"
+                        },
+                        {
+                            value: 140,
+                            color: "#dedede",
+                            highlight: "#1ab394",
+                            label: "Software"
+                        },
+                        {
+                            value: 200,
+                            color: "#b5b8cf",
+                            highlight: "#1ab394",
+                            label: "Laptop"
+                        }
+                    ];
+
+                    var polarOptions = {
+                        scaleShowLabelBackdrop: true,
+                        scaleBackdropColor: "rgba(255,255,255,0.75)",
+                        scaleBeginAtZero: true,
+                        scaleBackdropPaddingY: 1,
+                        scaleBackdropPaddingX: 1,
+                        scaleShowLine: true,
+                        segmentShowStroke: true,
+                        segmentStrokeColor: "#fff",
+                        segmentStrokeWidth: 2,
+                        animationSteps: 100,
+                        animationEasing: "easeOutBounce",
+                        animateRotate: true,
+                        animateScale: false,
+                    };
+                    var ctx = document.getElementById("polarChart").getContext("2d");
+                    var Polarchart = new Chart(ctx).PolarArea(polarData, polarOptions);
+
+                });
+        </script>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '../../www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-4625583-2', 'webapplayers.com');
+            ga('send', 'pageview');
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#wizard").steps();
+                $("#form").steps({
+                    bodyTag: "fieldset",
+                    onStepChanging: function (event, currentIndex, newIndex)
+                    {
+                        // Always allow going backward even if the current step contains invalid fields!
+                        if (currentIndex > newIndex)
+                        {
+                            return true;
+                        }
+
+                        // Forbid suppressing "Warning" step if the user is to young
+                        if (newIndex === 3 && Number($("#age").val()) < 18)
+                        {
+                            return false;
+                        }
+
+                        var form = $(this);
+
+                        // Clean up if user went backward before
+                        if (currentIndex < newIndex)
+                        {
+                            // To remove error styles
+                            $(".body:eq(" + newIndex + ") label.error", form).remove();
+                            $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                        }
+
+                        // Disable validation on fields that are disabled or hidden.
+                        form.validate().settings.ignore = ":disabled,:hidden";
+
+                        // Start validation; Prevent going forward if false
+                        return form.valid();
+                    },
+                    onStepChanged: function (event, currentIndex, priorIndex)
+                    {
+                        // Suppress (skip) "Warning" step if the user is old enough.
+                        if (currentIndex === 2 && Number($("#age").val()) >= 18)
+                        {
+                            $(this).steps("next");
+                        }
+
+                        // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                        if (currentIndex === 2 && priorIndex === 3)
+                        {
+                            $(this).steps("previous");
+                        }
+                    },
+                    onFinishing: function (event, currentIndex)
+                    {
+                        var form = $(this);
+
+                        // Disable validation on fields that are disabled.
+                        // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                        form.validate().settings.ignore = ":disabled";
+
+                        // Start validation; Prevent form submission if false
+                        return form.valid();
+                    },
+                    onFinished: function (event, currentIndex)
+                    {
+                        var form = $(this);
+
+                        // Submit form input
+                        form.submit();
+                    }
+                }).validate({
+                    errorPlacement: function (error, element)
+                    {
+                        element.before(error);
+                    },
+                    rules: {
+                        confirm: {
+                            equalTo: "#password"
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function(){
+
+            var $image = $(".image-crop > img")
+                    $($image).cropper({
+            aspectRatio: 1.618,
+                    preview: ".img-preview",
+                    done: function(data) {
+                    // Output the result data for cropping image.
+                    }
+            });
+                    var $inputImage = $("#inputImage");
+                    if (window.FileReader) {
+            $inputImage.change(function() {
+            var fileReader = new FileReader(),
+                    files = this.files,
+                    file;
+                    if (!files.length) {
+            return;
+            }
+
+            file = files[0];
+                    if (/^image\/\w+$/.test(file.type)) {
+            fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                    $inputImage.val("");
+                            $image.cropper("reset", true).cropper("replace", this.result);
+                    };
+            } else {
+            showMessage("Please choose an image file.");
+            }
+            });
+            } else {
+            $inputImage.addClass("hide");
+            }
+
+        </script>
+        <script>
+            // Config box
+
+            // Enable/disable fixed top navbar
+            $('#fixednavbar').click(function () {
+            if ($('#fixednavbar').is(':checked')) {
+            $(".navbar-static-top").removeClass('navbar-static-top').addClass('navbar-fixed-top');
+                    $("body").removeClass('boxed-layout');
+                    $("body").addClass('fixed-nav');
+                    $('#boxedlayout').prop('checked', false);
+            } else {
+            $(".navbar-fixed-top").removeClass('navbar-fixed-top').addClass('navbar-static-top');
+                    $("body").removeClass('fixed-nav');
+            }
+            });
+                    // Enable/disable fixed sidebar
+                    $('#fixedsidebar').click(function () {
+            if ($('#fixedsidebar').is(':checked')) {
+            $("body").addClass('fixed-sidebar');
+                    $('.sidebar-collapse').slimScroll({
+            height: '100%',
+                    railOpacity: 0.9,
+            });
+            } else {
+            $('.sidebar-collapse').slimscroll({destroy: true});
+                    $('.sidebar-collapse').attr('style', '');
+                    $("body").removeClass('fixed-sidebar');
+            }
+            });
+                    // Enable/disable collapse menu
+                    $('#collapsemenu').click(function () {
+            if ($('#collapsemenu').is(':checked')) {
+            $("body").addClass('mini-navbar');
+                    SmoothlyMenu();
+            } else {
+            $("body").removeClass('mini-navbar');
+                    SmoothlyMenu();
+            }
+            });
+                    // Enable/disable boxed layout
+                    $('#boxedlayout').click(function () {
+            if ($('#boxedlayout').is(':checked')) {
+            $("body").addClass('boxed-layout');
+                    $('#fixednavbar').prop('checked', false);
+                    $(".navbar-fixed-top").removeClass('navbar-fixed-top').addClass('navbar-static-top');
+                    $("body").removeClass('fixed-nav');
+                    $(".footer").removeClass('fixed');
+                    $('#fixedfooter').prop('checked', false);
+            } else {
+            $("body").removeClass('boxed-layout');
+            }
+            });
+                    // Enable/disable fixed footer
+                    $('#fixedfooter').click(function () {
+            if ($('#fixedfooter').is(':checked')) {
+            $('#boxedlayout').prop('checked', false);
+                    $("body").removeClass('boxed-layout');
+                    $(".footer").addClass('fixed');
+            } else {
+            $(".footer").removeClass('fixed');
+            }
+            });
+                    // SKIN Select
+                    $('.spin-icon').click(function () {
+            $(".theme-config-box").toggleClass("show");
+            });
+                    // Default skin
+                    $('.s-skin-0').click(function () {
+            $("body").removeClass("skin-1");
+                    $("body").removeClass("skin-2");
+                    $("body").removeClass("skin-3");
+            });
+                    // Blue skin
+                    $('.s-skin-1').click(function () {
+            $("body").removeClass("skin-2");
+                    $("body").removeClass("skin-3");
+                    $("body").addClass("skin-1");
+            });
+                    // Inspinia ultra skin
+                    $('.s-skin-2').click(function () {
+            $("body").removeClass("skin-1");
+                    $("body").removeClass("skin-3");
+                    $("body").addClass("skin-2");
+            });
+                    // Yellow skin
+                    $('.s-skin-3').click(function () {
+            $("body").removeClass("skin-1");
+                    $("body").removeClass("skin-2");
+                    $("body").addClass("skin-3");
+            });
+                    $(document).ready(function () {
+            $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+                    radioClass: 'iradio_square-green',
+            });
+            });
+
+
+        </script>
+
+    </body>
+
+    <!-- Mirrored from webapplayers.com/inspinia_admin-v1.9.2/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Mar 2015 12:29:38 GMT -->
+</html>

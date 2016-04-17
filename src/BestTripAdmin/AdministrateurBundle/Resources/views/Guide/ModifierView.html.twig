@@ -1,0 +1,55 @@
+{# empty Twig template #}
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Modifier Guide{% endblock %}
+{% block content %}
+    <label>Modifier Guide :</label>
+{% endblock  %}
+{% block WarperContent %}
+    {% if form_errors(form.titre) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.titre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.description) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.description) }}
+        </div>
+    {% endif %}
+    <form method="POST" action="{{ path('administrateur_modifier_guide',{id:guide.idGuide}) }}" {{ form_enctype(form) }}  novalidate>
+        <label>Titre *</label>
+        {{ form_widget(form.titre) }}
+        <br>
+        <label>Description *</label>
+        {{ form_widget(form.description) }} 
+        <br>
+        <label>Lien *</label>
+        {{ form_widget(form.file) }}
+        <br>
+        {% if paysChoisit != null %}
+            <label>Pays *</label>
+            <select class="form-control m-b" name="Pays" id="Pays" style=" width: 300px;">
+                <option value="0">-- Choisir Pays --</option> 
+                {% for pay in Pays %}
+                    <option value="{{ pay.idPays }}"
+                            {% if pay.idPays == paysChoisit.idPays %} selected {% endif %}
+                            >{{ pay.nom }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+        {% if villeChoisit != null %}
+            <label>Ville *</label>
+            <select class="form-control m-b" name="Ville" id="Ville" style=" width: 300px;">
+                <option value="">-- Choisir Ville --</option> 
+                {% for ville in villes %}
+                    <option value="{{ ville.idVille }}"
+                            {% if ville.idVille == villeChoisit.idVille %} selected {% endif %}
+                            >{{ ville.nom }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+        <br>
+        {{ form(form) }}
+    </form>
+{% endblock  %}

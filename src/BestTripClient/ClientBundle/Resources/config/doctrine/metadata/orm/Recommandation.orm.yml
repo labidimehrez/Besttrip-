@@ -1,0 +1,97 @@
+Recommandation:
+    type: entity
+    table: recommandation
+    indexes:
+        FKRecommenda941866:
+            columns:
+                - ID_Lieu
+        FKRecommenda571385:
+            columns:
+                - ID_Ville
+        FKRecommenda574495:
+            columns:
+                - ID_Utilisateur
+        FKRecommenda705189:
+            columns:
+                - ID_Compagnie
+    uniqueConstraints:
+        ID_Utilisateur:
+            columns:
+                - ID_Utilisateur
+                - ID_Ville
+        ID_Utilisateur_2:
+            columns:
+                - ID_Utilisateur
+                - ID_Compagnie
+        ID_Utilisateur_3:
+            columns:
+                - ID_Utilisateur
+                - ID_Lieu
+    id:
+        idRecommandation:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Recommandation
+            generator:
+                strategy: IDENTITY
+    fields:
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Description
+        titre:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Titre
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+    manyToOne:
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Ville:
+                    referencedColumnName: ID_Ville
+            orphanRemoval: false
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+        idCompagnie:
+            targetEntity: Compagnie
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Compagnie:
+                    referencedColumnName: ID_Compagnie
+            orphanRemoval: false
+        idLieu:
+            targetEntity: Lieu
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Lieu:
+                    referencedColumnName: ID_Lieu
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

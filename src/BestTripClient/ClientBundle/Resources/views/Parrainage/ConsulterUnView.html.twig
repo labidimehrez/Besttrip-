@@ -1,0 +1,216 @@
+{# empty Twig template #}
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Parrainage Détaillé</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="modal fade bs-example-modal-sme" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="overall-rating">
+                    <div class="alert alert-error">
+                        Message d'erreur. Vous Devez S'authentifier
+                    </div>
+                    <br><button type="submit" href="{{ path('login_user') }}" class="btn-large full-width sky-blue1"><a href="{{ path('login_user') }}">Se Connecter</a></button>
+                    <br> <br><button type="submit" class="btn-large full-width sky-blue1">S'inscrire</button>
+                    <br><br><center> <img src="{{ asset('bundles/Client/images/logo.png') }}" /></center>
+                    <br>
+
+                </div>                               
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="main" class="col-md-9">
+                <div class="tab-container style1" id="hotel-main-content">
+                    <ul class="tabs">
+                        <li class="active"><a data-toggle="tab" href="#photos-tab">photos</a></li>
+                            {% if video is not empty %}
+                            <li><a data-toggle="tab" href="#steet-view-tab">Video</a></li>
+                            {% endif %}
+                    </ul>
+                    <div class="tab-content">
+                        <div id="photos-tab" class="tab-pane fade in active">
+                            <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
+                                <ul class="slides">
+                                    {% for image in images %}
+                                        <li><img src="{{ asset('uploads/Itineraire/'~image.lien) }}" alt="" /></li>
+                                        {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
+                                <ul class="slides">
+                                    {% for image in images %}
+                                        <li><img src="{{ asset('uploads/Itineraire/'~image.lien) }}" alt="" /></li>
+                                        {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="steet-view-tab" class="tab-pane fade" style="height: 500px;">
+                        </div>
+                    </div>
+                </div>
+                <div id="hotel-features" class="tab-container">
+                    <ul class="tabs">
+                        <li class="active"><a href="#hotel-write-review" data-toggle="tab" >Description</a></li>
+                        <li><a href="#hotel-availability" data-toggle="tab">Participer</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in " id="hotel-availability">           
+                            <div class="update-search clearfix" id="hotel-signaler-review">
+                                <div id ="nbr">   <h4>Nombre de place restantes : {{ nbre }} </h4></div>
+                                <div class="row" id="si">
+                                {% if is_granted('ROLE_Client') %}
+                             {% if participations == null  %}  
+                                  {% if counter < parrainage.nbMax %}
+                                     
+                                      <div  class="col-md-5">
+                                    
+                                    <button class="button btn-large dark-blue2" id="signal" >Participer</button>
+                                     </div>
+                            
+                                  {% endif %}
+                                            {% elseif participations != null %}
+                                                <label><strong>Vous avez participez à cette offre </strong></label>
+                                            {% elseif counter == parrainage.nbMax %}
+                                                <label><strong>le nombre maximum de participation est atteint ,revenez ultérieurement</strong></label>
+
+                                            {% endif %}
+                                            {% else %} 
+                                                <button class="button btn-large dark-blue2" id="signal" data-toggle="modal" data-target=".bs-example-modal-sme">Participer</button>
+                                               
+                                            {% endif %}
+                                </div>
+                                            
+                            </div>
+                        </div>
+                        <div class="tab-pane fade in active" id="hotel-write-review">
+                            <div class="main-rating table-wrapper full-width hidden-table-sms intro">
+                                <div class="table-cell col-sm-8">
+                                    <div class="overall-rating">
+
+                                        <h2 class="box-title">Publier Par : {{ itineraire.idUtilisateur.nom ~ ' '~  itineraire.idUtilisateur.prenom}}</h2>
+                                        <p> {{ itineraire.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="sidebar col-md-3">
+                <article class="detailed-logo">
+                    <figure>
+                        <img width="114" height="85" src="{{ asset('uploads/OffreProfessionnelle/parrainage.bmp' ) }}" alt="">
+                    </figure>
+                    <div class="details">
+                        <h2 class="box-title">{{ parrainage.idUtilisateur.nomAgence }}<small> <br> <span class="fourty-space"> De : {{ parrainage.datedebut|date('Y-m-d') }}  A {{ parrainage.datefin|date('Y-m-d') }}</span></small></h2>
+                        <span class="price clearfix">
+                            <small class="pull-left">Prix/Personne</small>
+                            <span class="pull-right">{{ parrainage.prix }} {{ parrainage.devise }}</span>
+                        </span>
+                        <div class="feedback clearfix">
+                            <span class="review pull-left">{{ parrainage.titre }}</span>
+                        </div>
+                        <p class="description"> {{ parrainage.description }}</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script type="text/javascript">
+        tjq(document).ready(function () {
+            tjq("#stat").hide();
+
+
+            tjq("#rating").slider({
+                range: "min",
+                value: 0,
+                min: 0,
+                max: 100,
+                slide: function (event, ui) {
+                    tjq("#stat").show();
+
+                    tjq("#v").attr("value", ui.value)
+                    if (ui.value <= 20) {
+                        tjq("#stat").text(ui.value + '% Mauvais');
+                    }
+                    if (ui.value > 20 && ui.value <= 40) {
+                        tjq("#stat").text(ui.value + '% Pas Mal');
+                    }
+                    if (ui.value > 40 && ui.value <= 60) {
+                        tjq("#stat").text(ui.value + '% Bon');
+                    }
+                    if (ui.value > 60) {
+                        tjq("#stat").text(ui.value + '% Excellent');
+                    }
+                    var vals = tjq('#v').val();
+                    if (vals !== 0 && tjq("#bt").length === 0 && tjq("#btn").length === 0) {
+                        tjq("#this").append('{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}' +
+                                '&nbsp;&nbsp;&nbsp;<button id="bt" class="button btn-medium yellow ">Evaluer</button>' +
+                                '{% else %}' +
+                                '&nbsp;&nbsp;&nbsp;<a href="#show" id="btn" class="button btn-medium yellow soap-popupbox">Evaluer</a>' +
+                                '{% endif %}');
+                    }
+                    tjq("#bt").click(function () {
+                        var xhr = null;
+                        xhr = tjq.ajax({
+                            type: 'get',
+                            //url: 'http://localhost/BestTrip/web/app_dev.php/Client/evaluer/' + tjq('#v').val() + '/' + tjq('#idItin').val(),
+                            url: Routing.generate('client_evaluation', {val: tjq('#v').val(), id: tjq('#idItin').val()}),
+                            beforeSend: function () {
+                                console.log(tjq('#v').val());
+                                console.log(tjq('#idItin').val());
+                            },
+                            success: function (json) {
+                                tjq('#this').remove();
+                                tjq('.overall-rating').append("<p> Votre evaluation à été enregistrer avec succée </p>");
+
+                            }
+                        });
+
+
+                    });
+
+                }
+
+            });
+
+       tjq("#signal").click(function () {
+                var idpar = {{ parrainage.idParrainage }};
+                var nrn = {{ nbre - 1 }};
+                        tjq.ajax({
+                            type: 'get',
+                            //url: 'http://localhost/BestTrip/web/app_dev.php/Client/evaluer/' + tjq('#v').val() + '/' + tjq('#idItin').val(),
+                            url: Routing.generate('client_participer_parrainage', {idp: idpar}),
+                            beforeSend: function () {
+                                
+                                console.log(idpar);
+                            },
+                            success: function (json) {
+                                tjq('#si').empty();
+                                tjq('#si').append("<p> Votre participation à été enregistrée avec succée </p>");
+                                tjq('#nbr').empty();
+                                tjq('#nbr').append("<h4  class='title'>Nombre de place restantes :   " + nrn + "   </h4>");
+                            }
+                        });
+
+
+            });
+
+
+        });
+    </script>
+{% endblock %}

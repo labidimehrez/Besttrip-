@@ -1,0 +1,101 @@
+{# empty Twig template #}
+{# empty Twig template #}
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Consulter Mes Parrainage :</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div id="main">
+            <div class="row">
+                <div class="col-sm-4 col-md-3">
+                    <h4 class="search-results-title"><i class="soap-icon-search"></i> results found.</h4>
+                    <div class="toggle-container filters-container">
+                        <div class="panel style1 arrow-right">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#modify-search-panel" class="collapsed">Modify Search</a>
+                            </h4>
+                            <div id="modify-search-panel" class="panel-collapse collapse">
+                                <div class="panel-content">
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 col-md-9">
+             
+                    <div class="car-list listing-style3 car">
+                    {% for par in parrainages %}
+                        
+                        <article class="box">
+                                    <figure class="col-xs-3">
+                                        <span><img alt="" src="{{ asset('uploads/OffreProfessionnelle/parrainage.bmp' ) }}"></span>
+                                    </figure>
+                                    <div class="details col-xs-9 clearfix">
+                                        <div class="col-sm-8">
+                                            <div class="clearfix">
+                                                <h4 class="box-title">{{ par.titre }} {{ par.idItineraire.titre }}</h4>
+                                                
+                                            </div>
+                                            <div class="amenities">
+                                                {{ par.description }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-2 character">
+                                            <dl class="ss">
+                                                <dt class="skin-color">Date Debut</dt><dd>{{ par.datedebut|date('Y-m-d') }}</dd>
+                                                <dt class="skin-color">Date Fin</dt><dd>{{ par.datefin|date('Y-m-d') }}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="action col-xs-6 col-sm-2">
+                                            <span class="price"><small>Cout</small>{{ par.prix }} {{ par.devise }}</span>
+                                            <a href="{{ path('gerant_consulter_MonParrainage',{id:par.idParrainage}) }}" class="button btn-small full-width">Afficher</a>
+                                        </div>
+                                    </div>
+                                </article>
+               
+                      
+                     {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        tjq(document).ready(function () {
+            tjq("#price-range").slider({
+                range: true,
+                min: 0,
+                max: 1000,
+                values: [100, 800],
+                slide: function (event, ui) {
+                    tjq(".min-price-label").html("$" + ui.values[ 0 ]);
+                    tjq(".max-price-label").html("$" + ui.values[ 1 ]);
+                }
+            });
+            tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
+            tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
+
+            tjq("#rating").slider({
+                range: "min",
+                value: 40,
+                min: 0,
+                max: 50,
+                slide: function (event, ui) {
+
+                }
+            });
+        });
+    </script>
+{% endblock %}

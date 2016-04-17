@@ -1,0 +1,64 @@
+
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Statistiques{% endblock %}
+{% block WarperContent %}
+    <div  id="alert">
+
+    </div>
+    <form method="POST" id="this">
+        <label>Date Début</label>
+        <input class="date1" type="date" value="" name="dd" >
+
+        <label>Date Fin</label>
+        <input class="date2" type="date" value="" name="df" >
+        <input type="submit" name="Génerer Stat" value="Génerer Stat" class="btn btn-primary">
+        <div class="radio i-checks">
+            <label> <input type="radio" value="All" name="ch"  id="c" checked> <i></i> Tous </label>
+            <label> <input type="radio" value="Client" name="ch"  id="c" > <i></i> Client </label>
+            <label> <input type="radio" value="Gerant" name="ch"  id="g" > <i></i> Gérant </label>
+            <label> <input type="radio" value="Itineraire" name="ch"  id="i" > <i></i> Itinéraire </label>
+            <label> <input type="radio" value="Recommandation" name="ch"  id="r" > <i></i> Recommandation </label>
+        </div>
+    </form>
+    {% if chart is not empty and error is empty %}
+        <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    {% endif %}
+    {% if  error is not empty  %}
+        <div class="alert alert-danger alert-dismissable">
+            {{ error.err }}
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+{%block script %}
+    <script src="{{ asset('bundles/Administrateur/js/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
+    <script src="//code.highcharts.com/4.0.1/modules/exporting.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+              
+            $('#this').submit(function (event) {
+                if ($('.date1').val() === "" || $('.date2').val() === "") {
+                    $('#alert').empty();
+                    $('#alert').append(' <div class="alert alert-danger alert-dismissable">' +
+                            ' Veuillez saisir une date début et une date fin ! </div>');
+                    event.preventDefault();
+                }
+               
+
+
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        {% if chart is not empty %}
+            {{ chart(chart) }}
+        {% endif %}
+    </script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{# empty Twig template #}
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Valider Lieux{% endblock %}
+{% block content %}
+    <label>Valider Lieux</label>
+{% endblock  %}
+{% block WarperContent %}
+<Iframe
+            width = "600"
+            height = "450"
+            frameborder = "0" style = "border: 0"
+            src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDSZtIkqT7_L9Y9IMznDZVSE_Vpnn_9fYY
+            &q={{ adresse }},{{ ville }}">
+        </Iframe> 
+    <br>
+    <a href="{{ path('administrateur_Accepter_lieutmp',{id:idLieux}) }}" class="btn btn-outline btn-primary dim" ><i class="fa fa-check"> Valider </i></a>                       
+    <a href="{{ path('administrateur_Ignorer_lieutmp',{id:idLieux}) }}" class="btn btn-outline btn-danger  dim "><i class="fa fa-trash"> Ignorer </i></a>
+    <a href="{{ path('administrateur_consulter_Lieutmp') }}" class="btn btn-outline btn-success  dim"><i class="fa fa-paste"> Liste Lieux </i></a>
+
+
+{% endblock  %}

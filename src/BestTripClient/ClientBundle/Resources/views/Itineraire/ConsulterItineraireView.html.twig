@@ -1,0 +1,306 @@
+
+
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Itinéraire détaillé</h2>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.3";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="modal fade bs-example-modal-sme" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="overall-rating">
+                    <div class="alert alert-error">
+                        Message d'erreur. Vous Devez S'authentifier
+                    </div>
+                    <br><button type="submit" href="{{ path('login_user') }}" class="btn-large full-width sky-blue1"><a href="{{ path('login_user') }}">Se Connecter</a></button>
+                    <br> <br><button type="submit" class="btn-large full-width sky-blue1">S'inscrire</button>
+                    <br><br><center> <img src="{{ asset('bundles/Client/images/logo.png') }}" /></center>
+                    <br>
+
+                </div>                               
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="main" class="col-md-9">
+                <div class="tab-container style1" id="hotel-main-content">
+                    <ul class="tabs">
+                        <li class="active"><a data-toggle="tab" href="#photos-tab">photos</a></li>
+                        <li><a data-toggle="tab" href="#map-tab">map</a></li>
+                            {% if video is not empty %}
+                            <li><a data-toggle="tab" href="#steet-view-tab">Video</a></li>
+                            {% endif %}
+                    </ul>
+                    <div class="tab-content">
+                        <div id="photos-tab" class="tab-pane fade in active">
+                            <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
+                                <ul class="slides">
+                                    {% for image in images %}
+                                        <li><img src="{{ asset('uploads/Itineraire/'~image.lien) }}" alt="" /></li>
+                                        {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="image-carousel style1" data-animation="slide" data-item-width="70" data-item-margin="10" data-sync="#photos-tab .photo-gallery">
+                                <ul class="slides">
+                                    {% for image in images %}
+                                        <li><img src="{{ asset('uploads/Itineraire/'~image.lien) }}" alt="" /></li>
+                                        {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="map-tab" class="tab-pane fade">
+                            <Iframe
+                                width = "850"
+                                height = "450"
+                                frameborder = "0" style = "border: 0"
+                                src = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyDSZtIkqT7_L9Y9IMznDZVSE_Vpnn_9fYY
+                                {{ villes }}
+                                &avoid=tolls|highways">
+                            </Iframe>  
+                        </div>
+                        {% if video is not empty %}
+                            <div id="steet-view-tab" class="tab-pane fade" style="height: 500px;">
+                                <iframe width="854" height="510" src="{{ video }}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id="hotel-features" class="tab-container">
+                    <ul class="tabs">
+                        <li class="active"><a href="#hotel-description" data-toggle="tab">Description</a></li>
+                        <li><a href="#hotel-write-review" data-toggle="tab">Evaluer cet itinéraire</a></li>
+                        <li><a href="#hotel-availability" data-toggle="tab">Signaler Contenue</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="hotel-description">
+                            <div class="intro table-wrapper full-width hidden-table-sms">
+                                <div class="col-sm-5 col-lg-4 features table-cell">
+                                    <div class="author clearfix">
+                                        <a href="#"><img src="{{ asset('uploads/Utilisateurs/'~itineraire.idUtilisateur.photo) }}" alt="" width="74" height="74" draggable="false"></a>
+                                        <h5 class="name">{{ itineraire.idUtilisateur.nom ~ ' '~  itineraire.idUtilisateur.prenom}}<small>Owner</small></h5>
+                                    </div>
+                                    <ul>
+                                        <li><label>Date de naissance:</label>{{ itineraire.idUtilisateur.dateNaissance|date('d-m-Y') }}</li>
+                                        <li><label>Sexe:</label>{{ itineraire.idUtilisateur.sexe }}</li>
+                                        <li><label>Email:</label>{{ itineraire.idUtilisateur.email }}</li>
+                                        <li><label>Nombre des itinéraire partagés: </label><br>{{ nbr }}</li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-sm-7 col-lg-8 table-cell testimonials">
+
+                                    <div class="overall-rating">
+                                        <h4> Appréciation</h4>
+                                        <div class="star-rating clearfix">
+                                            <div class="five-stars-container"><div class="five-stars" style="width: {{ itineraire.note~'%' }};"></div></div>
+                                            <span class="status">
+                                                {%   if itineraire.note  <= 20 %}
+                                                    Mauvais
+                                                {% endif %}
+                                                {%   if itineraire.note  > 20 and itineraire.note <= 40 %}
+                                                    Pas Mal
+                                                {% endif %}
+                                                {%   if itineraire.note  > 40 and itineraire.note <= 60 %}
+                                                    Bon
+                                                {% endif %}
+                                                {%   if itineraire.note  > 60  %}
+                                                    Excellent
+                                                {% endif %}
+
+                                            </span>
+                                        </div>
+                                        <div class="detailed-rating">
+                                            <h4> Villes Visitées </h4>
+                                            {% for ville in itineraire.idVille %}
+                                                <p> {{ ville.nom }}, </p>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="detailed-rating">
+                                            <h4> Description </h4>
+                                            <p> {{ itineraire.description }}</p>
+                                            <input id='idItin' type='text' value='{{ itineraire.idItineraire }}' style='display: none;'>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="tab-pane fade in " id="hotel-availability">           
+                            {% if signalisation == null %}
+                                <div id="sign" class="update-search clearfix" id="hotel-signaler-review">
+                                    <div class="col-md-5">
+
+                                    </div>
+                                    <h4 class="title">Signaler ce contenu</h4>
+                                    <textarea id="com" value="" class="input-text full-width" rows="3" placeholder="Ecrire la causes ..."></textarea>
+                                    <br>
+                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                        <a id="signal"  class="uppercase full-width button btn-large sky-blue1">Signaler</a>
+                                    {% else %}
+                                        <a id="signal"  class="uppercase full-width button btn-large sky-blue1" data-toggle="modal" data-target=".bs-example-modal-sme">Signaler</a>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <p> Vous avez déja signalé cet itineraire</p>
+                            {% endif %}
+                        </div>
+
+
+                        <div class="tab-pane fade" id="hotel-write-review">
+                            <div class="main-rating table-wrapper full-width hidden-table-sms intro">
+
+                                <div class="table-cell col-sm-8">
+                                    <div class="overall-rating">
+                                        <h4>Evaluer ce contenu</h4>
+                                        {% if eva is empty %}
+                                            <div id="this" class="star-rating clearfix">
+                                                <div class="five-stars-container editable-rating" id="rating"></div>
+                                                <span class="status" id="stat"></span>
+                                                <input id="v" type="text" value="0"  style="display: none;">
+
+
+                                            </div>
+                                        {% else %}
+                                            <p> Vous avez déja evalué cet itineraire </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="sidebar col-md-3">
+                <div class="fb-page" data-href="https://www.facebook.com/pages/Besttrip/1411170949191420" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/pages/Besttrip/1411170949191420"><a href="https://www.facebook.com/pages/Besttrip/1411170949191420">Besttrip</a></blockquote></div></div>   
+            </div>
+        </div>
+    </div>
+    <div class="opacity-overlay" id="soap-popupbox" tabindex="-1" style="display: none;">
+        <div class="container">
+            <div class="popup-wrapper">
+                <div class="popup-content">
+                    <div id="show" class="travelo-login-box travelo-box" style="display: block;">
+                        <div class="login-social">
+                            <a href="#" class="button login-facebook"><i class="soap-icon-facebook"></i>Login with Facebook</a>
+                            <a href="#" class="button login-googleplus"><i class="soap-icon-googleplus"></i>Login with Google+</a>
+                        </div>
+
+                        <a href="#" class="button full-width btn-large">S'authentifier</a>
+                        <div class="seperator"><label>OU BIEN</label></div>
+                        <a href="#" class="button full-width btn-large">S'inscrire</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script type="text/javascript">
+        tjq(document).ready(function () {
+            tjq("#stat").hide();
+
+
+            tjq("#rating").slider({
+                range: "min",
+                value: 0,
+                min: 0,
+                max: 100,
+                slide: function (event, ui) {
+                    tjq("#stat").show();
+
+                    tjq("#v").attr("value", ui.value)
+                    if (ui.value <= 20) {
+                        tjq("#stat").text(ui.value + '% Mauvais');
+                    }
+                    if (ui.value > 20 && ui.value <= 40) {
+                        tjq("#stat").text(ui.value + '% Pas Mal');
+                    }
+                    if (ui.value > 40 && ui.value <= 60) {
+                        tjq("#stat").text(ui.value + '% Bon');
+                    }
+                    if (ui.value > 60) {
+                        tjq("#stat").text(ui.value + '% Excellent');
+                    }
+                    var vals = tjq('#v').val();
+                    if (vals !== 0 && tjq("#bt").length === 0 && tjq("#btn").length === 0) {
+                        tjq("#this").append('{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}' +
+                                '&nbsp;&nbsp;&nbsp;<button id="bt" class="button btn-medium yellow ">Evaluer</button>' +
+                                '{% else %}' +
+                                '&nbsp;&nbsp;&nbsp;<a href="#show" id="btn" class="button btn-medium yellow " data-toggle="modal" data-target=".bs-example-modal-sme">Evaluer</a>' +
+                                '{% endif %}');
+                    }
+                    tjq("#bt").click(function () {
+                        var xhr = null;
+                        xhr = tjq.ajax({
+                            type: 'get',
+                            //url: 'http://localhost/BestTrip/web/app_dev.php/Client/evaluer/' + tjq('#v').val() + '/' + tjq('#idItin').val(),
+                            url: Routing.generate('client_evaluation', {val: tjq('#v').val(), id: tjq('#idItin').val()}),
+                            beforeSend: function () {
+                                console.log(tjq('#v').val());
+                                console.log(tjq('#idItin').val());
+                            },
+                            success: function (json) {
+                                tjq('#this').remove();
+                                tjq('.overall-rating').append("<p> Votre evaluation à été enregistrée avec succée </p>");
+
+                            }
+                        });
+
+
+                    });
+
+                }
+
+            });
+
+            tjq("#signal").click(function () {
+                var idIti = {{ itineraire.idItineraire }};
+                        tjq.ajax({
+                            type: 'get',
+                            //url: 'http://localhost/BestTrip/web/app_dev.php/Client/evaluer/' + tjq('#v').val() + '/' + tjq('#idItin').val(),
+                            url: Routing.generate('client_signaler_itineraire', {com: tjq('#com').val(), idi: idIti}),
+                            beforeSend: function () {
+                                console.log(tjq('#com').val());
+                                console.log(idIti);
+                            },
+                            success: function (json) {
+                                tjq('#sign').empty();
+                                tjq('#sign').append("<p> Votre signalisation à été enregistrée avec succée </p>");
+
+                            }
+                        });
+
+
+            });
+
+
+        });
+    </script>
+{% endblock %}

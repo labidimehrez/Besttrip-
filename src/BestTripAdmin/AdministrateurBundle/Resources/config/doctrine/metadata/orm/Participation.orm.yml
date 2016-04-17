@@ -1,0 +1,58 @@
+Participation:
+    type: entity
+    table: participation
+    indexes:
+        FKParticipat907569:
+            columns:
+                - ID_Utilisateur
+        FKParticipat877483:
+            columns:
+                - ID_OffreP
+        FKParticipat114840:
+            columns:
+                - ID_parrainage
+    id:
+        idParticipation:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_participation
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateParticipation:
+            type: date
+            nullable: false
+            comment: ''
+            column: Date_Participation
+    manyToOne:
+        idParrainage:
+            targetEntity: Parrainage
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_parrainage:
+                    referencedColumnName: ID_Parrainage
+            orphanRemoval: false
+        idOffrep:
+            targetEntity: OffreProfessionnelle
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_OffreP:
+                    referencedColumnName: ID_OffreP
+            orphanRemoval: false
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

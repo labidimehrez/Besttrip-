@@ -1,0 +1,52 @@
+Compagnie:
+    type: entity
+    table: compagnie
+    uniqueConstraints:
+        Nom:
+            columns:
+                - Nom
+    id:
+        idCompagnie:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Compagnie
+            generator:
+                strategy: IDENTITY
+    fields:
+        nom:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Nom
+        type:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Type
+        logo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Logo
+        lien:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Lien
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+    lifecycleCallbacks: {  }

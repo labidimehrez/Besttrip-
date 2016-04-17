@@ -1,0 +1,33 @@
+Pays:
+    type: entity
+    table: pays
+    uniqueConstraints:
+        Nom:
+            columns:
+                - Nom
+    id:
+        idPays:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Pays
+            generator:
+                strategy: IDENTITY
+    fields:
+        nom:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Nom
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Description
+    lifecycleCallbacks: {  }

@@ -1,0 +1,138 @@
+{# empty Twig template #}
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Mon Offre Personnelle détaillé</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div class="row">
+            <div id="main" class="col-md-9">
+                <div class="tab-container style1" id="hotel-main-content">
+                    <ul class="tabs">
+                        <li class="active"><a data-toggle="tab" href="#photos-tab">photos</a></li>
+                        <li><a data-toggle="tab" href="#map-tab">map</a></li>
+                        <a href="{{ path('client_supprimer_offre',{id:offre.idOffrep}) }}" class=" button btn-small yellow  dim pull-right"><i class="fa fa-trash-o"></i>supprimer</a>
+                        <a href="{{ path('client_modifier_offre',{id:offre.idOffrep}) }}" class=" button btn-small sky-blue1  dim pull-right" ><i class="fa fa-wrench"></i>modifier</a>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="photos-tab" class="tab-pane fade in active">
+                            <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
+                                <ul class="slides">
+                                    <li><img src="{{ asset('uploads/Ville/'~ offre.image) }}" alt="" width="870px" height="530px"/></li>
+                                    <li><img src="{{ asset('uploads/Pays/'~ offre.imagepays) }}" alt="" width="870px" height="530px"/></li>
+                                    <li><img src="{{ asset('uploads/Ville/'~ offre.image) }}" alt="" width="870px" height="530px"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="map-tab" class="tab-pane fade">
+                        </div>
+                    </div>
+                </div>
+                <div id="hotel-features" class="tab-container">
+                    <ul class="tabs">
+                        <li class="active"><a href="#hotel-description" data-toggle="tab">Description</a></li>
+                        <li><a href="#hotel-write-review" data-toggle="tab">Evaluer Contenue</a></li>
+                        <li><a href="#hotel-availability" data-toggle="tab">Signaler Contenue</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="hotel-description">
+                            <div class="intro table-wrapper full-width hidden-table-sms">
+                                <div class="col-sm-5 col-lg-4 features table-cell">
+                                    <ul>
+                                        <li><label>Ville:</label>{{ offre.idVille }}</li>
+                                        <li><label>Dte De debut:</label>{{ offre.dateDebut|date('Y-m-d') }}</li>
+                                        <li><label>Date De Fin:</label>{{ offre.dateFin|date('Y-m-d') }}</li>  
+                                        <li><label>Prix:</label>{{ offre.prix }}-{{ offre.devise }}</li>
+                                        <li><label>Contact:</label>{{ offre.contact }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-7 col-lg-8 features table-cell ">
+                                    <ul>
+                                        <li> <center> {{ offre.description }} </center> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="hotel-write-review">
+
+                            <div class="main-rating table-wrapper full-width hidden-table-sms intro">
+                                <div class="table-cell col-sm-8">
+                                    <div class="overall-rating">
+                                        <h4>Evaluer ce contenu</h4>
+                                        <div class="star-rating clearfix">
+                                            <div class="five-stars-container editable-rating" id="rating"></div>
+                                            <span class="status"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="hotel-availability">           
+                            <div class="update-search clearfix" id="hotel-signaler-review">
+                                <div class="col-md-5">
+                                    <h4 class="title">Signaler ce contenu</h4>
+                                    <div class="row">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar col-md-3">
+                <article class="detailed-logo">
+                    <figure>
+                        <img width="114" height="85" src="{{ asset('uploads/Pays/'~ offre.imagepays) }}" alt="">
+                    </figure>
+                    <div class="details">
+                        <h2 class="box-title"><small><i class="soap-icon-departure yellow-color"></i></small>{{ offre.idVille.idPays }}</h2>
+
+
+                        <p class="description">{{ offre.idVille.idPays.description }}</p>
+
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        tjq(document).ready(function () {
+            tjq(".status").hide();
+            tjq("#rating").slider({
+                range: "min",
+                value: 0,
+                min: 0,
+                max: 100,
+                slide: function (event, ui) {
+                    tjq(".status").show();
+                    if (ui.value <= 20) {
+                        tjq(".status").text('Mauvais');
+                    }
+                    if (ui.value > 20 && ui.value <= 40) {
+                        tjq(".status").text('Pas Mal');
+                    }
+                    if (ui.value > 40 && ui.value <= 60) {
+                        tjq(".status").text('Bon');
+                    }
+                    if (ui.value > 60) {
+                        tjq(".status").text('Excellent');
+                    }
+
+                }
+            });
+
+        });
+    </script>
+{% endblock %}
+
+
+
+

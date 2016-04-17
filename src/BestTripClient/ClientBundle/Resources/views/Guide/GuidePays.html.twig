@@ -1,0 +1,85 @@
+
+
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Liste des guides de voyage (Pays)</h2>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div id="main">
+            <div class="row">
+
+
+
+                <div class="hotel-list">
+
+                    <div class="row image-box hotel listing-style1">
+                        {% for g in guides %}
+
+                            <div class="col-sm-6 col-md-3">
+                                <article class="box">
+                                    <figure>
+                                        <img width="270" height="160" alt="" src="{{ asset('uploads/Pays/'~ g.image) }}">
+                                    </figure>
+                                    <div class="details">
+
+                                        <h4 class="box-title">{{ g.titre }}<small>{{ g.idPays.nom }}</small></h4>
+                                        <div class="feedback">
+                                        </div>
+                                        <p class="description">{{ g.description }}</p>
+                                        <a class="button btn-small full-width" href="{{ asset('uploads/Guide/'~ g.lien) }}">Telecharger</a>
+
+                                        <div class="action">
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+                        <div class="navigation">
+                            {{ knp_pagination_render(guides) }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        tjq(document).ready(function () {
+            tjq("#price-range").slider({
+                range: true,
+                min: 0,
+                max: 1000,
+                values: [100, 800],
+                slide: function (event, ui) {
+                    tjq(".min-price-label").html("$" + ui.values[ 0 ]);
+                    tjq(".max-price-label").html("$" + ui.values[ 1 ]);
+                }
+            });
+            tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
+            tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
+
+            tjq("#rating").slider({
+                range: "min",
+                value: 40,
+                min: 0,
+                max: 50,
+                slide: function (event, ui) {
+
+                }
+            });
+        });
+    </script>
+{% endblock %}

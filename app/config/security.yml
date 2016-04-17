@@ -1,0 +1,74 @@
+# you can read more about security in the related section of the documentation
+# http://symfony.com/doc/current/book/security.html
+security:
+    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
+    encoders:
+        BestTripAdmin\AdministrateurBundle\Entity\Utilisateur: plaintext
+        BestTripClient\ClientBundle\Entity\Utilisateur: plaintext
+
+    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_ADMIN
+        ROLE_Client:       ROLE_USER
+        ROLE_Gerant:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        admin:
+            entity: { class: BestTripAdmin\AdministrateurBundle\Entity\Utilisateur, property: email }
+        user:
+            entity: { class: BestTripClient\ClientBundle\Entity\Utilisateur, property: email }
+        
+    # the main part of the security, where you can set up firewalls
+    # for specific sections of your app
+    firewalls:
+    # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        
+        main_login_admin:
+            pattern:   ^/Admin/login$
+            anonymous: true
+        
+        main_admin:
+            pattern:   ^/Admin
+            anonymous: false
+            provider:  admin
+            form_login:
+                login_path: /Admin/login
+                check_path: /Admin/login_check
+                always_use_default_target_path: true
+                default_target_path: /Admin
+
+            logout:
+                path:   /Admin/logout
+                target: /Admin
+                
+        main_login_user:
+            pattern:   ^/Client/login$
+            anonymous: true
+        
+        main_user:
+            pattern:   ^/Client
+            anonymous: true
+            provider:  user
+            form_login:
+                login_path: /Client/login
+                check_path: /Client/login_check
+                always_use_default_target_path: true
+                default_target_path: /Client
+                remember_me: true
+            remember_me:
+                key: %secret%
+                lifetime: 3600
+            logout:
+                path:   /Client/logout
+                target: /Client
+                
+    # with these settings you can restrict or allow access for different parts
+    # of your application based on roles, ip, host or methods
+    # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
+    access_control:
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

@@ -1,0 +1,88 @@
+Itineraire:
+    type: entity
+    table: itineraire
+    indexes:
+        FKItineraire378777:
+            columns:
+                - ID_Utilisateur
+    id:
+        idItineraire:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Itineraire
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateDebut:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Debut
+        dateFin:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Fin
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Description
+        depense:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: Depense
+        titre:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Titre
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+        devise:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Devise
+    manyToOne:
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+    manyToMany:
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: null
+            inversedBy: idItineraire
+            joinTable:
+                name: itineraire_ville
+                joinColumns:
+                    -
+                        name: ID_Itineraire
+                        referencedColumnName: ID_Itineraire
+                inverseJoinColumns:
+                    -
+                        name: ID_Ville
+                        referencedColumnName: ID_Ville
+            orderBy: null
+    lifecycleCallbacks: {  }

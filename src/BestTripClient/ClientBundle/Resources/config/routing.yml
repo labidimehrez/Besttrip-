@@ -1,0 +1,227 @@
+client_homepage:
+    path:     /Client
+    defaults: { _controller: ClientBundle:Default:Index }
+client_consulter_itineraire:
+    path:     /Client/consulter_ititneraire
+    defaults: { _controller: ClientBundle:Itineraire:Consulter }
+client_consulter_itineraire_detail:
+    path:     /Client/consulter_detail_itineraire/{id}
+    defaults: { _controller: ClientBundle:Itineraire:Details }
+client_Recommandation_getVille:
+    path:     /Client/getVille/{id}
+    defaults: { _controller: ClientBundle:Recommandation:GetVille }
+    options:
+        expose: true
+client_Recommandation_getLieux:
+    path:     /Client/getLieux/{id}/{type}
+    defaults: { _controller: ClientBundle:Recommandation:GetLieux }
+    options:
+        expose: true
+client_Recommandation_getCompagnie:
+    path:     /Client/getCompagnie/{type}
+    defaults: { _controller: ClientBundle:Recommandation:GetCompagnie }
+    options:
+        expose: true
+client_Recommandation_getCompagnieDet:
+    path:     /Client/getCompagnieDet/{id}
+    defaults: { _controller: ClientBundle:Recommandation:GetCompagnieDet }
+    options:
+        expose: true
+client_GuidesVille_Consulter:
+    path:     /Client/ConsulterGuidesville
+    defaults: { _controller: ClientBundle:Guide:ListerVille }
+client_GuidesPays_Consulter:
+    path:     /Client/ConsulterGuidespays
+    defaults: { _controller: ClientBundle:Guide:ListerPays }
+client_Recommandation_Consulter:
+    path:     /Client/ConsulterRecommandation
+    defaults: { _controller: ClientBundle:Recommandation:Consulter }
+client_Recommandation_Consultermes:
+    path:     /Client/ConsulterMesRecommandation
+    defaults: { _controller: ClientBundle:Recommandation:ConsulterMes }
+client_Recommandation_Recommander:
+    path:     /Client/Recommander
+    defaults: { _controller: ClientBundle:Recommandation:Ajout }
+client_Recommandation_RecommanderLieu:
+    path:     /Client/RecommanderLieu
+    defaults: { _controller: ClientBundle:Recommandation:AjoutLieu }
+client_Recommandation_RecommanderVille:
+    path:     /Client/RecommanderVille
+    defaults: { _controller: ClientBundle:Recommandation:AjoutVille }
+client_Recommandation_RecommanderCompagnie:
+    path:     /Client/RecommanderCompagnie
+    defaults: { _controller: ClientBundle:Recommandation:AjoutCompagnie }
+client_Recommandation_RecommanderLieutmp:
+    path:     /Client/RecommanderLieutmp
+    defaults: { _controller: ClientBundle:Recommandation:AjoutLieutmp }
+client_Recommandation_Modifier:
+    path:     /Client/ModifierRecommandation/{id}
+    defaults: { _controller: ClientBundle:Recommandation:Modifier }
+client_Recommandation_Supprimer:
+    path:     /Client/SupprimerRecommandation/{id}
+    defaults: { _controller: ClientBundle:Recommandation:Supprimer }
+login_user:
+    path:     /Client/login
+    defaults: { _controller: ClientBundle:Utilisateur:login }
+login_user_check:
+    pattern:   /Client/login_check
+logout_user:
+    pattern:   /Client/logout
+client_Compte:
+    path:     /Client/Compte
+    defaults: { _controller: ClientBundle:Utilisateur:Compte }
+client_getVille:
+    path:     /Client/getVille/{id}
+    defaults: { _controller: ClientBundle:Itineraire:GetVille } 
+    options:
+        expose: true
+client_ajout_itineraire:
+    path:     /Client/ajouter_itineraire
+    defaults: { _controller: ClientBundle:Itineraire:AjouterItineraireClient } 
+client_evaluation:
+    path:     /Client/evaluer/{val}/{id}
+    defaults: { _controller: ClientBundle:Evaluation:Ajout } 
+    options:
+        expose: true
+client_ajout_offrepersonnelle:
+    path:     /Client/ajouter_offrepersonnelle
+    defaults: { _controller: ClientBundle:OffrePersonnelle:Ajout }
+client_getVille:
+    path:     /Client/getVille/{id}
+    defaults: { _controller: ClientBundle:OffrePersonnelle:GetVille } 
+    options:
+        expose: true
+client_consulterAll_offrepersonnelle:
+    path:     /Client/consulterAll_offrepersonnelle
+    defaults: { _controller: ClientBundle:OffrePersonnelle:ConsulterAll }
+client_consulterOffre_offrepersonnelle:
+    path:     /Client/consulterOffre_offrepersonnelle/{id}
+    defaults: { _controller: ClientBundle:OffrePersonnelle:ConsulterOffre }
+client_consulterMonOffre_offrepersonnelle:
+    path:     /Client/consulterMonOffre_offrepersonnelle/{id}
+    defaults: { _controller: ClientBundle:OffrePersonnelle:ConsulterMonOffre }
+client_consulter_offrepersonnelle:
+    path:     /Client/consulter_offrepersonnelle
+    defaults: { _controller: ClientBundle:OffrePersonnelle:Consulter }
+client_supprimer_offre:
+    path:     /Client/supprimer_offrepersonnelle/{id}
+    defaults: { _controller: ClientBundle:OffrePersonnelle:Supprimer }
+client_modifier_offre:
+    path:     /Client/modifier_offrepersonnelle/{id}
+    defaults: { _controller: ClientBundle:OffrePersonnelle:Modifier }
+client_consulter_offreprofessionnelle:
+    path:     /Client/consulter_offreprofessionnelle
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:Consulter }
+gerant_ajout_offreprofessionnelle:
+    path:     /Client/ajouter_offreprofessionnelle
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:Ajouter }
+gerant_consulter_offreprofessionnelle:
+    path:     /Client/consulter_Mesoffreprofessionnelle
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:ConsulterMesOffre }
+client_consulter_Monoffreprofessionnelle:
+    path:     /Client/consulter_Monoffreprofessionnelle/{id}
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:ConsulterMonOffre }
+client_consulter_Uneoffreprofessionnelle:
+    path:     /Client/consulter_Uneoffreprofessionnelle/{id}
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:ConsulterUneOffre }
+gerant_supprimer_offre:
+    path:     /Client/supprimer_offreprofessionnelle/{id}
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:Supprimer }
+gerant_modifier_offre:
+    path:     /Client/modifier_offreprofessionnelle/{id}
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:Modifier }
+client_Recommandation_Chercher:
+    path:     /Client/ChercherRecommandation
+    defaults: { _controller: ClientBundle:Recommandation:Chercher }
+client_modifier_Utilisateur:
+    path:     /Client/modifier_Utilisateur
+    defaults: { _controller: ClientBundle:Utilisateur:modifier }
+client_ajouter_Utilisateur:
+    path:     /Client/ajouter_Utilisateur
+    defaults: { _controller: ClientBundle:Utilisateur:ajouter }
+client_Consulterlieu_det:
+    path:     /Client/ConsulterLieu/{id}
+    defaults: { _controller: ClientBundle:Lieu:Consulter }
+client_offreprofessionnelle_Chercher:
+    path:     /Client/Chercheroffreprofessionnelle
+    defaults: { _controller: ClientBundle:OffreProfessionnelle:Chercher }
+gerant_parrainage_Consulter:
+    path:     /Client/ConsulterParrainage
+    defaults: { _controller: ClientBundle:Parrainage:ConsulterMes }
+client_parrainage_Consulter:
+    path:     /Client/ConsulterAllParrainage
+    defaults: { _controller: ClientBundle:Parrainage:ConsulterAll }
+client_consulter_UnParrainage:
+    path:     /Client/ConsulterUnParrainage/{id}
+    defaults: { _controller: ClientBundle:Parrainage:ConsulterUn }
+gerant_annuler_UnParrainage:
+    path:     /Client/AnnulerParrainage/{id}
+    defaults: { _controller: ClientBundle:Parrainage:Annuler }
+gerant_consulter_MonParrainage:
+    path:     /Client/ConsulterMonParrainage/{id}
+    defaults: { _controller: ClientBundle:Parrainage:ConsulterMon }
+gerant_ajouter_Parrainage:
+    path:     /Client/AjouterParrainage/{id}
+    defaults: { _controller: ClientBundle:Parrainage:Ajouter }
+client_consulter_participation:
+    path:     /Client/consulter_mes_participations
+    defaults: { _controller: ClientBundle:Participation:consulterparticipation }
+client_annuler_participation_offre:
+    path:     /Client/Annuler_participation_offre/{ido}
+    defaults: { _controller: ClientBundle:Participation:AnnulerParticipationOffre }
+client_annuler_participation_parrainage:
+    path:     /Client/Annuler_participation_offre/{idp}
+    defaults: { _controller: ClientBundle:Participation:AnnulerParticipationParrainage }
+client_signaler_offre:
+    path:     /Client/signaler_offre/{com}/{ido}
+    defaults: { _controller: ClientBundle:Signalisation:AjoutSignalisationOffre } 
+    options:
+        expose: true
+        
+nomaya_social:
+    path:     /Client/social
+    defaults: { _controller: ClientBundle:Participation:nomaya }     
+client_participer_offre: 
+    path:     /Client/participer_offre/{ido}
+    defaults: { _controller: ClientBundle:Participation:ParticipationOffre } 
+    options:
+        expose: true
+client_evaluation_offre:
+    path:     /Client/evaluer_offre/{val}/{id}
+    defaults: { _controller: ClientBundle:Evaluation:AjoutOffrePro } 
+    options:
+        expose: true
+client_modif_itineraire:
+    path:     /Client/Modifier_itineraire/{id}
+    defaults: { _controller: ClientBundle:Itineraire:Modifier }
+client_signaler_itineraire:
+    path:     /Client/signaler_itineraire/{com}/{idi}
+    defaults: { _controller: ClientBundle:Signalisation:AjoutSignalisationItneraire }
+    options:
+        expose: true
+client_parrainageParItineraire_Consulter:
+    path:     /Client/ConsulterParrainageParItineraire/{id}
+    defaults: { _controller: ClientBundle:Parrainage:ConsulterParItineraire }
+client_offrepersonnelle_Chercher:
+    path:     /Client/Chercheroffrepersonnelle
+    defaults: { _controller: ClientBundle:OffrePersonnelle:Chercher }
+gerant_modif_parrainage:
+    path:     /Client/Modifier_parrainage/{id}
+    defaults: { _controller: ClientBundle:Parrainage:Modifier }
+client_desactiver_compte:
+    path:     /Client/desactiver_compte/{id}
+    defaults: { _controller: ClientBundle:Utilisateur:Desactiver }
+client_participer_parrainage: 
+    path:     /Client/participer_parrainage/{idp}
+    defaults: { _controller: ClientBundle:Participation:Participationparrainage } 
+    options:
+        expose: true  
+client_evaluation_offreperso: 
+    path:     /Client/evaluer_OffrePerso/{val}/{id}
+    defaults: { _controller: ClientBundle:Evaluation:AjoutOffrePerso } 
+    options:
+        expose: true  
+client_supp_itineraire: 
+    path:     /Client/supprimer_itin/{id}
+    defaults: { _controller: ClientBundle:Itineraire:Supprimer } 
+ 

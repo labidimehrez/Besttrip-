@@ -1,0 +1,576 @@
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Mon Compte :</h2>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="tab-container full-width-style arrow-left dashboard">
+        <ul class="tabs">
+            {% block tabs %}
+                <li class="active"><a data-toggle="tab" href="#profile"><i class="soap-icon-user circle"></i>Profile</a></li>
+              {% if is_granted('ROLE_Client') %}  <li class=""><a data-toggle="tab" href="#booking"><i class="soap-icon-businessbag circle"></i>Mes participations</a></li>{% endif %}
+              {% if is_granted('ROLE_Client') %}  <li class=""><a data-toggle="tab" href="#wishlist"><i class="soap-icon-wishlist circle"></i>Mes Recommandations</a></li>{% endif %}
+                <li class=""><a data-toggle="tab" href="#travel-stories"><i class="soap-icon-plane circle"></i> {% if is_granted('ROLE_Client') %}Mes Itinéraires {% else %} Mes Parrainages {% endif %}</a></li>
+                <li class=""><a data-toggle="tab" href="#settings"><i class="soap-icon-settings circle"></i>Mes Offres</a></li>
+                {% endblock %}
+        </ul>
+        <div class="tab-content">
+         
+            <div id="profile" class="tab-pane fade in active">
+                <div class="view-profile">
+                    <article class="image-box style2 box innerstyle personal-details">
+                        <form action="{{ path('client_modifier_Utilisateur') }}" method="POST" enctype="multipart/form-data">
+                        <<figure>
+                                {% if is_granted('ROLE_Client') %}
+                                    {% if (app.user.photo != "") %}
+                                        <img width="270" height="263" src="{{ asset('uploads/Utilisateurs/') }}{{ app.user.photo }}">
+                                    {% else %}
+                                        <img width="270" height="263" src="{{ asset('uploads/Utilisateurs/none.jpg') }}">
+                                    {% endif %}
+                                {% else %}
+                                    {% if (app.user.logo != "") %}    
+                                        <img width="270" height="263" src="{{ asset('uploads/Utilisateurs/') }}{{ app.user.logo }}">
+                                    {% else %}
+                                        <img width="270" height="263" src="{{ asset('uploads/Utilisateurs/none.jpg') }}">
+                                    {% endif %}
+                                {% endif %}
+                            <input type="file" name="img">
+                        </figure>
+                            <div class="details">
+                                <h2 class="box-title fullname">
+                                    {% if is_granted('ROLE_Client') %}
+                                        {{ app.user.prenom }} {{ app.user.nom }}
+                                    {% else %}
+                                        {{ app.user.nomAgence }}
+                                    {% endif %}
+                                </h2>
+                                <dl class="term-description">
+                                    <dt>Email :</dt><dd><input type="text" name="email" value="{{ app.user.email }}" class="input-text full-width"></dd>
+                                    <dt>Mot de passe :</dt><dd><input type="password" name="motDePasse" value="{{ app.user.motDePasse }}" class="input-text full-width"></dd>
+                                    <dt>Valider Mot de passe :</dt><dd><input type="password" name="VmotDePasse" value="{{ app.user.motDePasse }}" class="input-text full-width"></dd>
+                                        {% if is_granted('ROLE_Client') %}
+                                        <dt>Nom :</dt><dd><input type="text" name="nom" value="{{ app.user.nom }}" class="input-text full-width"></dd>
+                                        <dt>Prenom :</dt><dd><input type="text" name="prenom" value="{{ app.user.prenom }}" class="input-text full-width"></dd>
+                                        <dt>Telephone :</dt><dd><input type="tel" name="telephone" value="{{ app.user.telephone }}" class="input-text full-width"></dd>
+                                        <dt>Date de naissance :</dt><dd><input type="date" name="dateNaissance" value="{{ app.user.dateNaissance | date("Y-m-d") }}" class="input-text full-width hasDatepicker"></dd>
+                                        {% if (app.user.sexe=="M") %}
+                                                <dt>Sexe:</dt><dd><input type="radio" name="sexe" value="M" checked>Masculin   
+                                                <input type="radio" name="sexe" value="F">Féminin</dd>
+                                            {% else %}
+                                                <dt>Sexe:</dt><dd><input type="radio" name="sexe" value="M">Masculin   
+                                                <input type="radio" name="sexe" value="F" checked>Féminin</dd>
+                                            {% endif %}
+                                        {% else %}
+                                            <dt>Nom agence :</dt><dd><input type="text" name="nomAgence" value="{{ app.user.nomAgence }}" class="input-text full-width"></dd>
+                                            <dt>Adresse :</dt><dd><input type="text" name="adresse" value="{{ app.user.adresse }}" class="input-text full-width"></dd>                                                
+                                        {% endif %}
+                                        {% if (app.user.abbnewslettre=="1") %}
+                                            <dt>S'abbonner newslettre :</dt><dd><input type="checkbox" name="abbnewslettre" checked></dd>
+                                        {% else %}
+                                            <dt>S'abbonner newslettre :</dt><dd><input type="checkbox" name="abbnewslettre"></dd>
+                                        {% endif %}
+                                    </dl>
+                                </div>
+                                <center>
+                                    <button class="btn btn-medium yellow"><i class="fa fa-wrench">Modifier profil</i></button>
+                                    <a href="{{ path('client_desactiver_compte',{id:app.user.idUtilisateur}) }}" class="btn btn-medium btn-danger  dim "><i class="fa fa-lock"> Désactiver </i></a>
+                                </center>
+                            </form>
+                        </article>
+                        <hr>
+                        
+                       
+                    </div>
+                    <div class="edit-profile">
+                        <form class="edit-profile-form">
+                            <h2>Personal Details</h2>
+                            <div class="col-sm-9 no-padding no-float">
+                                <div class="row form-group">
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>First Name</label>
+                                        <input type="text" class="input-text full-width" placeholder="">
+                                    </div>
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Last Name</label>
+                                        <input type="text" class="input-text full-width" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Email Address</label>
+                                        <input type="text" class="input-text full-width" placeholder="">
+                                    </div>
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Verify Email Address</label>
+                                        <input type="text" class="input-text full-width" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Country Code</label>
+                                        <div class="selector">
+                                            <select class="full-width">
+                                                <option>United Kingdom (+44)</option>
+                                                <option>United States (+1)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Phone Number</label>
+                                        <input type="text" class="input-text full-width" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <label class="col-xs-12">Date of Birth</label>
+                                    <div class="col-xs-4 col-sm-2">
+                                        <div class="selector">
+                                            <select class="full-width">
+                                                <option value="">date</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-2">
+                                        <div class="selector">
+                                            <select class="full-width">
+                                                <option value="">month</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-2">
+                                        <div class="selector">
+                                            <select class="full-width">
+                                                <option value="">year</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h2>Contact Details</h2>
+                                <div class="row form-group">
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Street Name</label>
+                                        <input type="text" class="input-text full-width">
+                                    </div>
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Address</label>
+                                        <input type="text" class="input-text full-width">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>City</label>
+                                        <div class="selector">
+                                            <select class="full-width">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Country</label>
+                                        <div class="selector">
+                                            <select class="full-width">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-sms-6 col-sm-6">
+                                        <label>Region State</label>
+                                        <div class="selector">
+                                            <select class="full-width">
+                                                <option value="">Select...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h2>Upload Profile Photo</h2>
+                                <div class="row form-group">
+                                    <div class="col-sms-12 col-sm-6 no-float">
+                                        <div class="fileinput full-width">
+                                            <input type="file" class="input-text" data-placeholder="select image/s">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h2>Describe Yourself</h2>
+                                <div class="form-group">
+                                    <textarea rows="5" class="input-text full-width" placeholder="please tell us about you"></textarea>
+                                </div>
+                                <div class="from-group">
+                                    <button type="submit" class="btn-medium col-sms-6 col-sm-4">UPDATE SETTINGS</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="settings" class="tab-pane fade">
+                    {% if is_granted('ROLE_Client') %}
+                        <a href="{{ path('client_ajout_offrepersonnelle') }}" class="uppercase full-width button btn-large sky-blue1">Ajouter Une offre</a>   
+                        <div class="car-list listing-style3 car">
+
+                            {% for offre in offres %}
+
+                                <article class="box">
+                                    <figure class="col-xs-3">
+                                        <span><img alt="" src="{{ asset('uploads/Ville/'~ offre.image) }}"></span>
+                                    </figure>
+                                    <div class="details col-xs-9 clearfix">
+                                        <div class="col-sm-8">
+                                            <div class="clearfix">
+                                                <h4 class="box-title">{{ offre.Titre }}</h4>
+
+                                            </div>
+                                            <div class="amenities">
+                                                {{ offre.description }}
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-2 character">
+                                            <dl class="">
+                                                <dt class="skin-color">Date Debut</dt><dd>{{ offre.dateDebut|date('Y-m-d') }}</dd>
+                                                <dt class="skin-color">Date Fin</dt><dd>{{ offre.dateFin|date('Y-m-d') }}</dd>
+                                            </dl>
+                                        </div>
+                                        <div class="action col-xs-6 col-sm-2">
+                                            <span class="price"><small>Cout</small>{{ offre.prix }} {{ offre.devise }}</span>
+                                            <a href="{{ path('client_consulterMonOffre_offrepersonnelle',{id:offre.idOffrep}) }}" class="button btn-small full-width">Afficher</a>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        {% endif %}
+                        {% if is_granted('ROLE_Gerant') %}
+                            <a href="{{ path('gerant_ajout_offreprofessionnelle') }}" class="uppercase full-width button btn-large sky-blue1">Ajouter Une offre</a>   
+                            <div class="car-list listing-style3 car">
+                                {% for offre in offres %}
+
+                                    <article class="box">
+                                        <figure class="col-xs-3">
+                                            <span><img alt="" src="{{ asset('uploads/OffreProfessionnelle/'~ offre.photo) }}"></span>
+                                        </figure>
+                                        <div class="details col-xs-9 clearfix">
+                                            <div class="col-sm-8">
+                                                <div class="clearfix">
+                                                    <h4 class="box-title">{{ offre.Titre }}</h4>
+
+                                                </div>
+                                                <div class="amenities">
+                                                    {{ offre.description|raw }}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-2 character">
+                                                <dl class="">
+                                                    <dt class="skin-color">Date Debut</dt><dd>{{ offre.dateDebut|date('Y-m-d') }}</dd>
+                                                    <dt class="skin-color">Date Fin</dt><dd>{{ offre.dateFin|date('Y-m-d') }}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="action col-xs-6 col-sm-2">
+                                                <span class="price"><small>Cout</small>{{ offre.prix }} {{ offre.devise }}</span>
+                                                <a href="{{ path('client_consulter_Monoffreprofessionnelle',{id:offre.idOffrep}) }}" class="button btn-small full-width">Afficher</a>
+                                            </div>
+                                        </div>
+                                    </article>
+
+
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div id="wishlist" class="tab-pane fade">
+                        <h2>Recomandation</h2>
+                        <div class="row image-box listing-style2 add-clearfix">
+                            {% for r in rec %}
+                                <div class="travel-story-container box">
+                                    <div class="travel-story-content">
+                                        <div class="avatar">
+                                            <img src="{{ asset('uploads/Utilisateurs/') }}{{ app.user.photo }}" width="90" height="90" alt="">
+                                            <h5>{{ r.idUtilisateur }}</h5>
+                                        </div>
+                                        <div class="description">
+                                            {% if r.idVille is not null %}
+                                                <div class="alert alert-notice">
+                                                    Ville:{{ r.idVille }}                          
+                                                </div>
+
+                                            {% elseif r.idCompagnie is not null %}
+                                                <div class="alert alert-notice">
+                                                    Compagnie:{{ r.idCompagnie }}
+                                                </div>
+                                            {% elseif r.idLieu is not null %}
+                                                <div class="alert alert-notice">
+                                                    Lieu:{{ r.idLieu }}
+                                                </div>
+                                            {% else %}
+                                                <div class="alert alert-notice">
+                                                    Lieu pas encore validé         
+                                                </div>
+                                            {% endif %}  
+                                            </span>
+
+                                            <h4 class="skin-color">{{ r.titre }}</h4>
+                                            <blockquote class="style2">
+                                                {{ r.description }}
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                    <div class="travel-story-meta clearfix">
+                                        <div class="story-meta">
+
+                                            <a class="likes button" href="{{ path('client_Recommandation_Modifier',{id:r.idRecommandation}) }}" ><i class="soap-icon-star-1"></i>Modifier</a>
+                                            <a class="likes button" href="{{ path('client_Recommandation_Supprimer',{id:r.idRecommandation}) }}"><i class="soap-icon-close"></i>Supprimer</a>
+
+                                            <span class="date"><i class="soap-icon-clock"></i>{{ r.dateAjout|date('Y-m-d') }}</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div id="travel-stories" class="tab-pane fade">
+                        {% if is_granted('ROLE_Client') %}
+                            <h2>Vos Itinéraires</h2>
+                            <div class="col-lg-9 listing-style3 hotel">
+
+                                {% for itineraire in itineraires %}
+                                    <article class="box">
+                                        <figure class="col-sm-5 col-md-4">
+                                            <img id="image" width="270" height="160" alt="" src="{{ asset('uploads/Itineraire/'~ itineraire.attachement.lien) }}">
+                                        </figure>
+                                        <div class="details col-xs-12 col-sm-7 col-md-8">
+                                            <div>
+                                                <div>
+                                                    <h4 class="box-title">{{ itineraire.titre }}<small>
+                                                            <i class="soap-icon-departure yellow-color"></i> 
+                                                            {% for ville in itineraire.idVille %}
+                                                                {{ ville.nom ~', '}} 
+                                                            {% endfor %}
+                                                            <br>
+                                                            <i class="soap-icon-plane"></i> {{ itineraire.dateDebut|date('d-m-Y') }}
+                                                            <i class="soap-icon-plane-bottom"></i> {{ itineraire.dateFin|date('d-m-Y') }}
+                                                        </small></h4>
+                                                    <span class="price"><small>Prix</small>{{ itineraire.depense ~ ' ' ~ itineraire.devise  }}
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <div class="five-stars-container">
+                                                        <span class="five-stars" style="width: {{ itineraire.note }}%;"></span>
+                                                        <small>Evaluer {{ nbr }} fois</small>
+                                                    </div>
+                                                    <span class="review"></span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p>{{ itineraire.description }}</p>
+                                                <div>
+                                                    <a class="button btn-small full-width text-center sky-blue1" title="" href="{{ path('client_modif_itineraire',{id:itineraire.idItineraire}) }} }}">MODIFIER</a>
+                                                    <a class="button btn-small full-width text-center dark-orange" title="" href="{{ path('client_supp_itineraire',{id:itineraire.idItineraire}) }}">SUPPRIMER</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <h2>Vos Parrainage</h2>
+                            <div class="car-list listing-style3 car">
+                                {% for par in parrainages %}
+
+                                    <article class="box">
+                                        <figure class="col-xs-3">
+                                            <span><img alt="" src="{{ asset('uploads/OffreProfessionnelle/parrainage.bmp' ) }}"></span>
+                                        </figure>
+                                        <div class="details col-xs-9 clearfix">
+                                            <div class="col-sm-8">
+                                                <div class="clearfix">
+                                                    <h4 class="box-title">{{ par.titre }} {{ par.idItineraire.titre }}</h4>
+
+                                                </div>
+                                                <div class="amenities">
+                                                    {{ par.description }}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-2 character">
+                                                <dl class="ss">
+                                                    <dt class="skin-color">Date Debut</dt><dd>{{ par.datedebut|date('Y-m-d') }}</dd>
+                                                    <dt class="skin-color">Date Fin</dt><dd>{{ par.datefin|date('Y-m-d') }}</dd>
+                                                </dl>
+                                            </div>
+                                            <div class="action col-xs-6 col-sm-2">
+                                                <span class="price"><small>Cout</small>{{ par.prix }} {{ par.devise }}</span>
+                                                <a href="{{ path('gerant_consulter_MonParrainage',{id:par.idParrainage}) }}" class="button btn-small full-width">Afficher</a>
+                                            </div>
+                                        </div>
+                                    </article>
+
+
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <div id="booking" class="tab-pane fade">
+                           <h2>Les offres que vous acez y participé !</h2>
+                             
+                                <div class="booking-history">
+                                    
+                                    {% for p in participations  %}
+                                    <div class="booking-info clearfix">
+                                        <div class="date">
+                                            <label class="month">
+                                                {% if p.dateParticipation|date('m')==1  %}
+                                               Janvier
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==2  %}
+                                               Fevrier  
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==3  %}
+                                               Mars
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==4  %}
+                                               Avril
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==5  %}
+                                               Mai
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==6  %}
+                                               Juin
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==7  %}
+                                               Juillet
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==8  %}
+                                               Août
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==9  %}
+                                               Septembre
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==10  %}
+                                               Octobre
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==11  %}
+                                               Novembre
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==12  %}
+                                               Décembre
+                                                {% endif %}
+                                            
+                                            </label>
+                                            <label class="date">{{ p.dateParticipation|date('d') }}</label>
+                                            <label class="day">{{ p.dateParticipation|date('Y') }}</label>
+                                        </div>
+                                        {% if p.idOffrep.type =='sejour' %}
+                                        <h4 class="box-title"><i class="icon soap-icon-plane-right takeoff-effect yellow-color circle"></i>{{ p.idOffrep.titre }}<small> {{ p.idOffrep.description|raw }}  </small></h4>
+                                       {% endif %}
+                                        {% if p.idOffrep.type =='croisiere' %}
+                                        <h4 class="box-title"><i class="icon soap-icon-cruise circle green-color"></i>{{ p.idOffrep.titre }}<small>{{ p.idOffrep.description|raw }}</small></h4>
+                                       {% endif %}
+                                        <dl class="info">
+                                            <dt>Prix</dt>
+                                            <dd>{{ p.idOffrep.prix }} DT</dd>
+                                            <dt>Durée du voyage</dt>
+                                            <dd>du {{ p.idOffrep.dateDebut|date('d-m-Y') }} au {{ p.idOffrep.dateFin|date('d-m-Y') }}</dd>
+                                        </dl>
+                                        
+                                        <form method="POST" action="{{ path('client_consulter_Uneoffreprofessionnelle',{id:p.idOffrep.idOffrep}) }}">
+                                        <button type="submit" class="btn-mini status" >Consulter l'offre</button>
+                                        </form>
+                                        <form method="POST" action="{{ path('client_annuler_participation_offre',{ido:p.idOffrep.idOffrep}) }}">
+                                        <button type="submit" class="btn-mini status" >Annuler Participation</button>
+                                        </form>
+                                        
+                                    </div>
+                                   
+                                 
+                                        
+                                        
+                                    {% endfor %}
+                                    
+                                        {% for p in participationsp  %}
+                                    <div class="booking-info clearfix">
+                                        <div class="date">
+                                            <label class="month">
+                                                {% if p.dateParticipation|date('m')==1  %}
+                                               Janvier
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==2  %}
+                                               Fevrier  
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==3  %}
+                                               Mars
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==4  %}
+                                               Avril
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==5  %}
+                                               Mai
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==6  %}
+                                               Juin
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==7  %}
+                                               Juillet
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==8  %}
+                                               Août
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==9  %}
+                                               Septembre
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==10  %}
+                                               Octobre
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==11  %}
+                                               Novembre
+                                                {% endif %}
+                                                {% if p.dateParticipation|date('m')==12  %}
+                                               Décembre
+                                                {% endif %}
+                                            
+                                            </label>
+                                            <label class="date">{{ p.dateParticipation|date('d') }}</label>
+                                            <label class="day">{{ p.dateParticipation|date('Y') }}</label>
+                                        </div>
+                                        <h4 class="box-title"><i class="icon soap-icon-plane-right takeoff-effect yellow-color circle"></i>{{ p.idParrainage.titre }}<small> {{ p.idParrainage.description }} </small></h4>
+                                        <dl class="info">
+                                            <dt>Prix</dt>
+                                            <dd>{{ p.idParrainage.prix }} DT</dd>
+                                            <dt>Durée du voyage</dt>
+                                            <dd>du {{ p.idParrainage.datedebut|date('d-m-Y') }} au {{ p.idParrainage.datefin|date('d-m-Y') }}</dd>
+                                        </dl>
+                                        <form method="POST" action="{{ path('client_consulter_UnParrainage',{id:p.idParrainage.idParrainage}) }}">
+                                        <button type="submit" class="btn-mini status">Consulter l'offre</button>
+                                        </form>
+                                        <form method="POST" action="{{ path('client_annuler_participation_parrainage',{idp:p.idParrainage.idParrainage}) }}">
+                                        <button type="submit" class="btn-mini status">Annuler Participation</button>
+                                        </form>
+                                    </div>
+                                   
+                                    
+                                    {% endfor %}
+                                    
+                                    
+                                </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+            
+{% block script %}
+      <style>
+        #image {
+            width: 270px;
+            height: 160px;
+        }
+    </style>
+{% endblock %}

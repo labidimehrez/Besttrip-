@@ -1,0 +1,330 @@
+{% extends "ClientBundle::layout.html.twig" %}
+{% block slideshow %}
+    <div id="slideshow">
+        <div class="fullwidthbanner-container">
+            <div class="revolution-slider" style="height: 0; overflow: hidden;">
+                <ul>    <!-- SLIDE  -->
+                    <!-- Slide1 -->
+                    <li data-transition="zoomin" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/1.jpg') }}" alt="">
+                    </li>
+
+                    <!-- Slide2 -->
+                    <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/2.jpg') }}" alt="">
+                    </li>
+
+                    <!-- Slide3 -->
+                    <li data-transition="slidedown" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/3.jpg') }}" alt="">
+                    </li>
+                    <li data-transition="zoomin" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/4.jpg') }}" alt="">
+                    </li>
+                    <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/5.jpg') }}" alt="">
+                    </li>
+                    <li data-transition="slidedown" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/6.jpg') }}" alt="">
+                    </li><li data-transition="zoomin" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/7.jpg') }}" alt="">
+                    </li>
+                    <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/8.jpg') }}" alt="">
+                    </li>
+                    <li data-transition="slidedown" data-slotamount="7" data-masterspeed="1500">
+                        <!-- MAIN IMAGE -->
+                        <img src="{{ asset('bundles/client/images/HomePage/9.jpg') }}" alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block search %}
+    <div class="search-box-wrapper">
+        <div class="search-box container">
+            <ul class="search-tabs clearfix">
+                <li class="active"><a href="#hotels-tab" data-toggle="tab">ITENRAIRE</a></li>
+                <li><a href="#flights-tab" data-toggle="tab">OFFRE PROFESSIONNEL</a></li>
+                <li><a href="#flight-and-hotel-tab" data-toggle="tab">OFFRE PERONNELLE</a></li>
+                <li><a href="#cars-tab" data-toggle="tab">RECOMMANDATIONS</a></li>
+                <
+            </ul>
+            <div class="visible-mobile">
+                <ul id="mobile-search-tabs" class="search-tabs clearfix">
+                    <li class="active"><a href="#hotels-tab">ITENRAIRE</a></li>
+                    <li><a href="#flights-tab">OFFRE PROFESSIONNEL</a></li>
+                    <li><a href="#flight-and-hotel-tab">OFFRE PERONNELLE</a></li>
+                    <li><a href="#cars-tab">RECOMMANDATIONS</a></li>
+                </ul>
+            </div>
+
+            <div class="search-tab-content">
+                <div class="tab-pane fade active in" id="hotels-tab">
+                    <form method="POST" action="{{ path('client_consulter_itineraire') }}">
+                        <div class="col-md-4">
+                            <h4 class="title">Nom :</h4>
+                            <div class="form-group">
+                                <label></label>
+                                <input type="text" class="input-text full-width" name="nom" placeholder="Entrez Le nom de la ville" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="title"> </h4>
+                            <div class="form-group">
+                                <label> </label>
+                                <button type="submit" class="full-width icon-check animated bounce" data-animation-type="bounce" data-animation-duration="1" style="-webkit-animation-duration: 1s; visibility: visible;">Chercher Itineraire</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="flights-tab">
+                    <form method="POST" action="{{ path('client_offreprofessionnelle_Chercher') }}">
+                        <div class="col-md-4">
+                            <h4 class="title">Type :</h4>
+                            <div class="form-group">
+                                <label></label>
+                                <div class="selector">
+                                    <select class="full-width" name="type">
+                                        <option value="0">Choisir Type</option>
+                                        <option value="sejour">Sejour</option>
+                                        <option value="croisiere">Croisiére</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="title">Nom :</h4>
+                            <div class="form-group">
+                                <label></label>
+                                <input type="text" class="input-text full-width" name="Ville" placeholder="Entrez La ville" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="title"> </h4>
+                            <div class="form-group">
+                                <label> </label>
+                                <button type="submit" class="full-width icon-check animated bounce" data-animation-type="bounce" data-animation-duration="1" style="-webkit-animation-duration: 1s; visibility: visible;">Chercher Offre Professionnelle</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="flight-and-hotel-tab">
+
+                    <form method="POST" action="">
+                        <div class="col-md-4">
+                            <h4 class="title">Ville :</h4>
+                            <div class="form-group">
+                                <label></label>
+                                <input type="text" class="input-text full-width" name="Ville" placeholder="Entrez Le nom du ville" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="title"> </h4>
+                            <div class="form-group">
+                                <label> </label>
+                                <button type="submit" class="full-width icon-check animated bounce" data-animation-type="bounce" data-animation-duration="1" style="-webkit-animation-duration: 1s; visibility: visible;">Chercher Offre Personnel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="cars-tab">
+
+                    <form method="POST" action="{{ path('client_Recommandation_Chercher') }}">
+                        <div class="col-md-4">
+                            <h4 class="title">Type :</h4>
+                            <div class="form-group">
+                                <label></label>
+                                <div class="selector">
+                                    <select class="full-width" name="type">
+                                        <option value="Ville">Ville</option>
+                                        <option value="Lieu">Lieu</option>
+                                        <option value="Compagnie">Compagnie</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="title">Nom :</h4>
+                            <div class="form-group">
+                                <label></label>
+                                <input type="text" class="input-text full-width" name="nom" placeholder="Entrez Le nom" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="title"> </h4>
+                            <div class="form-group">
+                                <label> </label>
+                                <button type="submit" class="full-width icon-check animated bounce" data-animation-type="bounce" data-animation-duration="1" style="-webkit-animation-duration: 1s; visibility: visible;">Chercher Recommandations</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bestPlaces %}
+    <div class="destinations section">
+        <div class="container">
+            <h2>Les itinéraires les plus évalués </h2>
+            <div class="row image-box style1 add-clearfix">
+                {% for it in iteneraires %}
+                    <div class="col-sms-6 col-sm-6 col-md-3">
+                        <article class="box">
+                            <figure class="animated" data-animation-type="fadeInDown" data-animation-duration="1">
+                                <a href="{{ path('client_consulter_itineraire_detail',{ id:it.idItineraire } ) }}" title="" class="hover-effect popup-gallery"><img src="{{ asset('uploads/Itineraire/'~ it.attachement) }}" alt="" width="270" height="160" /></a>
+                            </figure>
+                            <div class="details">
+                                <span class="price"><small>Depence:</small>{{ it.depense ~ ' ' ~ it.devise }}</span>
+                                <h4 class="box-title"><a href="hotel-detailed.html">{{ it.titre }}<small>{{ it.number }}(Evaluations)</small></a></h4>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block hotDeals %}
+    <div class="honeymoon section global-map-area promo-box parallax" data-stellar-background-ratio="0.5">
+        <div class="container">
+            <div class="col-sm-6 content-section description pull-right">
+                <h1 class="title">Les lieux les plus recommandés :</h1>
+                <div class="row places image-box style9">
+                    {% for l in lieux %}
+                        <div class="col-xs-4">
+                            <article class="box">
+                                <figure height="42" width="42">
+                                    <img src="{{ asset('uploads/Lieu/'~ l.image) }}" style="width:30px;height:150px;" />
+                                </figure>
+                                <div class="details">
+                                    <h4 class="box-title">{{ l.nom }}<small>({{ l.nbrec }} Recommandations)</small></h4>
+                                    <a href="{{ path('client_Consulterlieu_det',{id:l.idLieu}) }}" title="" class="button">Detailles</a>
+                                </div>
+                            </article>
+                        </div>
+
+
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="col-sm-6 image-container no-margin">
+                <img src="{{ asset('bundles/client/images/bestlieux.png') }}" alt="" class="animated" data-animation-type="fadeInUp" data-animation-duration="2">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bestItineraire %}
+    <div class="offers section">
+        <div class="container">
+            <div class="row image-box style2">
+                <center>
+                    <h1 class="title">Les dernieres offres de voyages publiées par nos Agences Partenaires</h1>
+                </center>
+                {% for o in offres %}
+                    <div class="col-md-6">
+                        <article class="box">
+                            <figure class="animated" data-animation-type="fadeInLeft" data-animation-duration="1">
+                                <a href="#" title="">
+                                
+                                    
+                                    {% if o.offre.photo=="" %}
+                                    <img src="{{ asset('uploads/nondisponible.jpg') }}" alt="" width="270" height="192" />
+                                    {% else %}
+                                    <img src="{{ asset('uploads/OffreProfessionnelle/'~ o.offre.photo) }}" alt="" width="270" height="192" />
+                                    {% endif %}
+
+                                
+                                </a>
+                            </figure>
+                            <div class="details">
+                                <h4>{{ o.offre.Titre }}</h4>
+                                <p>{{ o.offre.Description|raw }}</p>
+                                <a href="{{ path('client_consulter_Uneoffreprofessionnelle',{id:o.offre.idOffrep}) }}" title="" class="button">SEE ALL</a>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block features %}
+    <div class="features section global-map-area parallax" data-stellar-background-ratio="0.5">
+        <div class="container">
+            <div class="row image-box style7">
+                <div class="col-sms-6 col-sm-6 col-md-3">
+                    <article class="box">
+                        <figure class="middle-block">
+                            <img src="{{ asset('bundles/client/images/HomePage/5.jpg') }}" alt="" class="middle-item" />
+                            <span class="opacity-wrapper"></span>
+                        </figure>
+                        <div class="details">
+                            <h4><a href="#">Documents d'identité et visas</a></h4>
+                            <p>
+                                Vérifiez les formalités d'entrée et de séjour auprès de l'ambassade et du consulat du pays de destination. (document de voyage requis : passeport ou carte nationale d'identité ? nécessité d'un visa ?).                            </p>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-sms-6 col-sm-6 col-md-3">
+                    <article class="box">
+                        <figure class="middle-block">
+                            <img src="{{ asset('bundles/client/images/HomePage/3.jpg') }}" alt="" class="middle-item" />
+                            <span class="opacity-wrapper"></span>
+                        </figure>
+                        <div class="details">
+                            <h4><a href="#">Argent</a></h4>
+                            <p>
+                                Vérifiez que vous disposez de moyens de paiement suffisants (liquidités, chèques de voyage, carte de crédit...) pour couvrir vos frais de séjour et votre retour.                            </p>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-sms-6 col-sm-6 col-md-3">
+                    <article class="box">
+                        <figure class="middle-block">
+                            <img src="{{ asset('bundles/client/images/HomePage/1.jpg') }}" alt="" class="middle-item" />
+                            <span class="opacity-wrapper"></span>
+                        </figure>
+                        <div class="details">
+                            <h4><a href="#">Sécurité</a></h4>
+                            <p>
+                                Lors de vos déplacements à l'étranger, n'acceptez jamais un colis d'un inconnu. Ce paquet peut en effet contenir des stupéfiants ou des explosifs.                            </p>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-sms-6 col-sm-6 col-md-3">
+                    <article class="box">
+                        <figure class="middle-block">
+                            <img src="{{ asset('bundles/client/images/HomePage/2.jpg') }}" alt="" class="middle-item" />
+                            <span class="opacity-wrapper"></span>
+                        </figure>
+                        <div class="details">
+                            <h4><a href="#">Santé et vaccinations</a></h4>
+                            <p>
+                                Renseignez-vous auprès de la caisse d'assurance maladie dont vous dépendez et auprès de votre compagnie d'assurance sur les possibilités de remboursement des frais médicaux à l'étranger.                            </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

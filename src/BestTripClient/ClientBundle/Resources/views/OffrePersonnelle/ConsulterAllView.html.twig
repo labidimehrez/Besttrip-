@@ -1,0 +1,103 @@
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Consulter Offres Personnelles :</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div id="main">
+            <div class="row">
+                  <div class="col-sm-4 col-md-3">
+                    <h4 class="search-results-title"><i class="soap-icon-search"></i>Résultats Trouvés</h4>
+                    <div class="toggle-container filters-container">
+                        <div class="panel style1 arrow-right">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#modify-search-panel" class="collapsed">Recherche Avancée</a>
+                            </h4>
+                            <div id="modify-search-panel" class="panel-collapse collapse">
+                                <div class="panel-content">
+                                    <form method="POST" action="{{ path('client_offrepersonnelle_Chercher') }}">
+                                        <label>Pays *</label>
+                                        <select class="form-control m-b" name="Pays" id="Pays" style=" width: 220px;">
+                                            <option value="0">-- Choisir Pays --</option> 
+                                            {% for pay in Pays %}
+                                                <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <br>
+                                        <label id="label">Ville *</label>
+                                        <select class="form-control m-b" name="Ville" id="Ville" style=" width: 220px;">
+                                            <option value="0">-- Choisir Ville --</option> 
+                                        </select>
+
+                                        <div class="with-icon full-width">
+                                            <br>
+                                            <center><button class="button btn-small light-yellow" type="submit">Rechercher</button></center>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8 col-md-9">
+             
+                    <div class="row flight-list image-box flight listing-style1">
+                    {% for offre in offres %}
+                        <div class="col-sm-6 col-lg-4">
+                            <article class="box">
+                                <h4 class="box-title">{{ offre.Titre }}</h4>
+                                <figure>
+                                    <span><img id="image" alt="" src="{{ asset('uploads/Ville/'~ offre.image) }}"></span>
+                                </figure>
+                                <div class="details">
+                                    <span class="price"><small>Cout/personne</small>{{ offre.prix }} {{ offre.devise }}</span>
+                                    <h4 class="box-title">{{ offre.idVille }}</h4>
+                                    <div class="time">
+                                        <div class="take-off">
+                                            <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
+                                            <div>
+                                                <span class="skin-color">Date Debut</span><br>{{ offre.dateDebut|date('Y-m-d') }}
+                                            </div>
+                                        </div>
+                                        <div class="landing">
+                                            <div class="icon"><i class="soap-icon-plane-right yellow-color"></i></div>
+                                            <div>
+                                                <span class="skin-color">Date Fin</span><br>{{ offre.dateFin|date('Y-m-d') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="duration"><span class="skin-color">Contacte le :</span> {{ offre.contact }}</p>
+                                    <div class="action">
+                                        <a class="button btn-small full-width" href="{{ path('client_consulterOffre_offrepersonnelle',{id:offre.idOffrep}) }}">Plus D'information</a>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                     {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+     <style>
+        #image {
+            width: 270px;
+            height: 160px;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
+    <script src="{{ asset('bundles/client/js/getVilleOffre.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    
+{% endblock %}

@@ -1,0 +1,100 @@
+{# empty Twig template #}
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Modifier itinéraire</h2>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div id="main">
+
+        <div id="errors"></div>
+
+
+
+
+        <div class="tab-container full-width-style arrow-left dashboard">
+            <ul class="tabs">
+
+                <li class="active"><a data-toggle="tab" href="#travel-stories"><i class="soap-icon-conference circle"></i>Détails Générales</a></li>
+
+            </ul>
+            <form method="POST" id="itinForm" action="{{ path('client_modif_itineraire',{id:itineraire.idItineraire}) }}"   novalidate>
+                <div class="tab-content">
+
+
+
+
+                    <div id="travel-stories" class="tab-pane fade active in">
+                        <h2>Modifier Votre Experience</h2>
+                        <div class="col-sm-9 no-float no-padding">
+
+                            <div class="row form-group">
+                                <div class="col-sms-6 col-sm-6">
+                                    <h4>Titre</h4>
+                                    {{ form_widget(form.titre) }}
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="row form-group">
+                                <h4>Décrie Votre Expérience</h4>
+                                {{ form_widget(form.description) }}
+                            </div>
+                            <hr>
+                            <h4>Date Départ/Date Arrivé  </h4>
+                            <div class="row form-group">
+
+                                <div class="col-sm-6 col-sm-6" >
+                                    <label>De:</label>
+
+                                    {{ form_widget(form.dateDebut) }} 
+
+
+                                </div>
+
+                                <div class="col-sm-6 col-sm-6" >
+                                    <label>Au:</label>
+
+                                    {{ form_widget(form.dateFin) }}
+
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <h4>Dépense</h4>
+                                <p>Combien avez vous payer pour votre magnifique voyage </p>
+                                <div class="col-sm-6 no-float no-padding" style="line-height: 34px;">
+                                    {{ form_widget(form.depense) }}<select class="selector" name="devise">
+                                        <option {% if itineraire.devise == "DT" %}  selected {% endif %} >DT</option>
+                                        <option {% if itineraire.devise == "Euro" %}  selected {% endif %}>Euro</option>
+                                        <option {% if itineraire.devise == "Dollars" %}  selected {% endif %}>Dollars</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <br>
+
+                            <div class="form-group col-sm-5 col-md-4 no-float no-padding no-margin">
+                                <button type="submit"  name="Modifier Histoire" class="button btn-large yellow">Modifier histoire</button> 
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('bundles/client/js/FormValidator.js') }}"></script>
+{% endblock %}

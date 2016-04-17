@@ -1,0 +1,111 @@
+OffreProfessionnelle:
+    type: entity
+    table: offre_professionnelle
+    indexes:
+        FKOffre_Prof272391:
+            columns:
+                - ID_Compagnie
+        FKOffre_Prof141697:
+            columns:
+                - ID_Utilisateur
+    id:
+        idOffrep:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_OffreP
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateDebut:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Debut
+        dateFin:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Fin
+        description:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Description
+        prix:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: Prix
+        nbMax:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: Nb_Max
+        type:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Type
+        photo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Photo
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+        titre:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Titre
+        devise:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Devise
+    manyToOne:
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+        idCompagnie:
+            targetEntity: Compagnie
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Compagnie:
+                    referencedColumnName: ID_Compagnie
+            orphanRemoval: false
+    manyToMany:
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: idOffrep
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

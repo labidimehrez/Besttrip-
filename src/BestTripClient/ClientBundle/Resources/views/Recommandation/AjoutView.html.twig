@@ -1,0 +1,259 @@
+
+{% extends "ClientBundle::layout.html.twig" %}
+
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Publier votre recommandation</h2>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>    
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="{{ asset('bundles/Client/js/ListerVilleLieu.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script src="{{ asset('bundles/Client/js/MapAuto.js') }}"></script>
+
+    <style>
+        #map-canvas {
+            height: 300px;
+            width: 700px;
+            margin: 0px;
+            padding: 0px
+        }
+        .controls {
+            margin-top: 16px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #pac-input {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 400px;
+        }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+        .pac-container {
+            font-family: Roboto;
+        }
+
+        #type-selector {
+            color: #fff;
+            background-color: #4d90fe;
+            padding: 5px 11px 0px 11px;
+        }
+
+        #type-selector label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    </style>
+    <script>
+
+    </script>
+     <div id="errors">dsfsdfsdfsdf</div>
+    <div class="tab-container full-width-style white-bg">
+
+        <br>
+        <ul class="tabs">
+            <li class="active"><a href="#first-tab" data-toggle="tab"><i class="soap-icon-hotel-2 circle"></i>Recommander Ville</a></li>
+            <li><a href="#second-tab" data-toggle="tab"><i class="soap-icon-breakfast circle"></i>Recommander Lieu</a></li>
+            <li><a href="#third-tab" data-toggle="tab"><i class="soap-icon-plane-right circle"></i>Recommander Compagnie</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="first-tab">
+                <form id="Form1" novalidate method="POST" action="{{ path('client_Recommandation_RecommanderVille') }}" {{ form_enctype(form1) }} >
+                    <table>
+                        <tr>
+                            <td>Pays *:</td>
+                            <td>Ville *:</td>
+                        </tr>
+                        <tr>
+                            <td><select class="selectpicker" name="Pays" id="Pays1" style=" width: 300px;">
+                                    <option value="0">-- Choisir Pays --</option> 
+                                    {% for pay in pays %}
+                                        <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+                                    {% endfor %}
+                                </select></td>
+                            <td><select class="form-control m-b" name="Ville" id="Ville1" style=" width: 300px;">
+                                    <option value="">-- Choisir Ville --</option> 
+                                </select></td>
+                        </tr>
+                    </table>
+
+                    <div id="RecVille">
+                        <label>Titre *</label>
+                        {{ form_widget(form1.titre, { 'attr': {'id': 'titre1'} }) }} <br>
+                        <label>Description *</label>
+                        {{ form_widget(form1.description, { 'attr': {'id': 'desc1'} }) }} <br>
+                        <button id ="bt1" type="submit" value="Valider" class="full-width btn-large sky-blue1">Confirmer</button>
+
+                    </div><br>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="second-tab">
+                <div class="col-sm-6">
+                    <div class="toggle-container box" id="accordion1" style="height: 100%">
+                        <div class="panel style1">
+                            <h4 class="panel-title">
+                                <a href="#acc1" data-toggle="collapse" data-parent="#accordion1" class="collapsed">Recommander un lieu existant</a>
+                            </h4>
+                            <div class="panel-collapse collapse" id="acc1">
+                                <div class="panel-content">
+                                    <form novalidate method="POST" action="{{ path('client_Recommandation_RecommanderLieu') }}" {{ form_enctype(form) }} >
+                                        <table>
+                                            <tr>
+                                                <td>Pays *:</td>
+                                                <td>Ville *:</td>
+                                                <td>Type *:</td>
+                                                <td>Lieu * :</td>
+                                            </tr>
+                                            <tr>
+                                                <td><select class="selectpicker" name="Pays" id="Pays" style=" width: 300px;">
+                                                        <option value="0">-- Choisir Pays --</option> 
+                                                        {% for pay in pays %}
+                                                            <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+                                                        {% endfor %}
+                                                    </select></td>
+                                                <td><select class="form-control m-b" name="Ville" id="Ville" style=" width: 300px;">
+                                                        <option value="">-- Choisir Ville --</option> 
+                                                    </select></td>
+                                                <td><select class="form-control m-b" name="Typel" id="Typel" style=" width: 300px;">
+                                                        <option value="Restaurant">Restaurant</option> 
+                                                        <option value="Hotel">Hotel</option> 
+                                                    </select></td>
+                                                <td> <select class="form-control m-b" name="Lieu" id="Lieu" style=" width: 300px;">
+                                                        <option value="">-- Choisir Un Lieu --</option> 
+                                                    </select></td>
+                                            </tr>
+                                        </table>
+                                        <div id="Reclieu">
+                                            <label>Titre *</label>
+                                            {{ form_widget(form.titre, { 'attr': {'id': 'titre2'} }) }} <br>
+                                            <label>Description *</label>
+                                            {{ form_widget(form.description, { 'attr': {'id': 'desc2'} }) }} <br>
+                                            <button type="submit" value="Valider" class="full-width btn-large sky-blue1">Confirmer</button>
+
+                                        </div><br>
+                                    </form>
+                                </div><!-- end content -->
+                            </div>
+                        </div>
+
+                        <div class="panel style1">
+                            <h4 class="panel-title">
+                                <a class="collapsed" href="#acc2" data-toggle="collapse" data-parent="#accordion1">Ajouter un autre lieu</a>
+                            </h4>
+                            <div class="panel-collapse collapse" id="acc2">
+                                <div class="panel-content">
+                                    <form novalidate method="POST" action="{{ path('client_Recommandation_RecommanderLieutmp') }}" {{ form_enctype(form2) }} >
+                                        <table style="height: '400px'">
+                                            <tr>
+                                                <td>Nom *:</td>
+                                                <td>Type *:</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ form_widget(forml.nom) }}</td>
+                                                <td>{{ form_widget(forml.type) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pays *:</td>
+                                                <td>Ville *:</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>      
+                                                    <select class="form-control m-b" name="Pays" id="Pays2" style=" width: 300px;">
+                                                        <option value="0">-- Choisir Pays --</option> 
+                                                        {% for pay in pays %}
+                                                            <option value="{{ pay.idPays }}">{{ pay.nom }}</option>
+                                                        {% endfor %}
+                                                    </select></td>
+                                                <td>
+                                                    <select class="form-control m-b" name="Ville" id="Ville2" style=" width: 300px;">
+                                                        <option value="">-- Choisir Ville --</option> 
+                                                    </select>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                        <label>Adresse: *</label>
+                                        <input id="pac-input" class="controls" type="textArea"
+                                               placeholder="Enter a location" name='Adresse'>
+
+                                        <div id="map-canvas" ></div><br>
+                                        <div id="RecLitmp">
+                                            <label>Titre *</label>
+                                            {{ form_widget(form3.titre) }} <br>
+                                            <label>Description *</label>
+                                            {{ form_widget(form3.description) }} <br>
+                                            <button type="submit" value="Valider" class="full-width btn-large sky-blue1">Confirmer</button>
+
+                                        </div><br>
+                                    </form> 
+                                </div><!-- end content -->
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="third-tab">
+                <div class="panel-content">
+                    <form novalidate method="POST" action="{{ path('client_Recommandation_RecommanderCompagnie') }}" {{ form_enctype(form2) }} >
+                        <table>
+                            <tr>
+                                <td>Type*:</td>
+                                <td>Nom*:</td>
+                            </tr>
+                            <tr>
+                                <td><select class="form-control m-b" name="Type" id="Type" style=" width: 300px;">
+                                        <option value="">-- Choisir Type --</option> 
+
+                                        <option value="Aerienne">Aerienne</option> 
+                                        <option value="Maritime">Maritime</option>
+                                    </select></td>
+                                <td><select class="form-control m-b" name="Compagnie" id="Compagnie" style=" width: 300px;">
+                                        <option value="">-- Choisir Compagnie --</option> 
+                                    </select></td>
+                            </tr>                 
+                        </table>
+                        <div id="RecComp">
+                            <label>Titre *</label>
+                            {{ form_widget(form2.titre) }} <br>
+                            <label>Description *</label>
+                            {{ form_widget(form2.description) }} <br>
+                            <button type="submit" value="Valider" class="full-width btn-large sky-blue1" style=" width: 300px;">Confirmer</button>
+
+                        </div><br>
+                    </form>       
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

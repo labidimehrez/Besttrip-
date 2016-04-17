@@ -1,0 +1,91 @@
+Signalisation:
+    type: entity
+    table: signalisation
+    indexes:
+        FKSignalisat615007:
+            columns:
+                - ID_Recommandation
+        FKSignalisat549783:
+            columns:
+                - ID_Itineraire
+        FKSignalisat982600:
+            columns:
+                - ID_OffreP
+        FKSignalisat186516:
+            columns:
+                - ID_Utilisateur
+    id:
+        idSignalisation:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Signalisation
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Type
+        commentaire:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Commentaire
+        etat:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Etat
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+    manyToOne:
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+        idItineraire:
+            targetEntity: Itineraire
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Itineraire:
+                    referencedColumnName: ID_Itineraire
+            orphanRemoval: false
+        idRecommandation:
+            targetEntity: Recommandation
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Recommandation:
+                    referencedColumnName: ID_Recommandation
+            orphanRemoval: false
+        idOffrep:
+            targetEntity: OffrePersonnelle
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_OffreP:
+                    referencedColumnName: ID_OffreP
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

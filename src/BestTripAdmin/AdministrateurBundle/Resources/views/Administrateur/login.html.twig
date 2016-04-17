@@ -1,0 +1,67 @@
+{# empty Twig template #}
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from webapplayers.com/inspinia_admin-v1.9.2/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Mar 2015 12:30:58 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BestTrip-Authentification</title>
+
+    <link href="{{ asset('bundles/Administrateur/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('bundles/Administrateur/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/Administrateur/css/style.css') }}" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">BT</h1>
+
+            </div>
+            <h3>Best Trip</h3>
+           
+            <p>Authentification</p>
+             {% if error %}
+    <div class="alert alert-danger">{{ error.message }}</div>
+  {% endif %}
+
+  <form action="{{ path('login_check') }}" method="post" enctype="multipart/form">
+     <div class="form-group">
+                    <input type="email" id="username" name="_username" value="{{ last_username }}" class="form-control" placeholder="Email" required="">
+                </div>
+   <!-- <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" style="width: 300px;" />
+    <br /> -->
+                     <div class="form-group">
+                    <input type="password" id="password" name="_password" class="form-control" placeholder="Password" required="">
+                </div>
+    <!--<label for="password">Mot de passe :</label>
+    <br />
+    <input type="password" id="password" name="_password" class="form-control" style="width: 300px;"/>
+    <br />-->
+    <input type="submit" value="Connexion" class="btn btn-primary block full-width m-b" style="width: 100px;"/>
+  </form>
+    <p class="m-t"> <small>SuccessMembers &copy; 2014</small> </p>
+           
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="{{ asset('bundles/Administrateur/js/jquery-2.1.1.js') }}"></script>
+    <script src="{{ asset('bundles/Administrateur/js/bootstrap.min.js') }}"></script>
+
+</body>
+
+
+<!-- Mirrored from webapplayers.com/inspinia_admin-v1.9.2/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 09 Mar 2015 12:30:58 GMT -->
+</html>
+

@@ -1,0 +1,85 @@
+Media:
+    type: entity
+    table: media
+    indexes:
+        FKMedia913728:
+            columns:
+                - ID_Itineraire
+        FKMedia909624:
+            columns:
+                - ID_Lieu
+    uniqueConstraints:
+        ID_Ville:
+            columns:
+                - ID_Ville
+        ID_Pays:
+            columns:
+                - ID_Pays
+    id:
+        idMedia:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Media
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Type
+        lien:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Lien
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+    manyToOne:
+        idPays:
+            targetEntity: Pays
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Pays:
+                    referencedColumnName: ID_Pays
+            orphanRemoval: false
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Ville:
+                    referencedColumnName: ID_Ville
+            orphanRemoval: false
+        idLieu:
+            targetEntity: Lieu
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Lieu:
+                    referencedColumnName: ID_Lieu
+            orphanRemoval: false
+        idItineraire:
+            targetEntity: Itineraire
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Itineraire:
+                    referencedColumnName: ID_Itineraire
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,137 @@
+Evaluation:
+    type: entity
+    table: evaluation
+    indexes:
+        FKEvaluation286228:
+            columns:
+                - ID_Itineraire
+        FKEvaluation351452:
+            columns:
+                - ID_Recommandation
+        FKEvaluation727517:
+            columns:
+                - ID_Guide
+        FKEvaluation246156:
+            columns:
+                - ID_OffrePersonnelle
+        FKEvaluation667068:
+            columns:
+                - ID_OffreProfessionnelle
+        FKEvaluation922960:
+            columns:
+                - ID_Utilisateur
+        FKEvaluation351855:
+            columns:
+                - ID_Lieu
+    uniqueConstraints:
+        ID_Utilisateur:
+            columns:
+                - ID_Utilisateur
+                - ID_OffreProfessionnelle
+        ID_Utilisateur_2:
+            columns:
+                - ID_Utilisateur
+                - ID_OffrePersonnelle
+        ID_Utilisateur_3:
+            columns:
+                - ID_Utilisateur
+                - ID_Guide
+        ID_Utilisateur_4:
+            columns:
+                - ID_Utilisateur
+                - ID_Recommandation
+        ID_Utilisateur_5:
+            columns:
+                - ID_Utilisateur
+                - ID_Itineraire
+        ID_Utilisateur_6:
+            columns:
+                - ID_Utilisateur
+                - ID_Lieu
+    id:
+        idEvaluation:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Evaluation
+            generator:
+                strategy: IDENTITY
+    fields:
+        note:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: Note
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+    manyToOne:
+        idOffrepersonnelle:
+            targetEntity: OffrePersonnelle
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_OffrePersonnelle:
+                    referencedColumnName: ID_OffreP
+            orphanRemoval: false
+        idItineraire:
+            targetEntity: Itineraire
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Itineraire:
+                    referencedColumnName: ID_Itineraire
+            orphanRemoval: false
+        idRecommandation:
+            targetEntity: Recommandation
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Recommandation:
+                    referencedColumnName: ID_Recommandation
+            orphanRemoval: false
+        idLieu:
+            targetEntity: Lieu
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Lieu:
+                    referencedColumnName: ID_Lieu
+            orphanRemoval: false
+        idOffreprofessionnelle:
+            targetEntity: OffreProfessionnelle
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_OffreProfessionnelle:
+                    referencedColumnName: ID_OffreP
+            orphanRemoval: false
+        idGuide:
+            targetEntity: Guide
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Guide:
+                    referencedColumnName: ID_Guide
+            orphanRemoval: false
+        idUtilisateur:
+            targetEntity: Utilisateur
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Utilisateur:
+                    referencedColumnName: ID_Utilisateur
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

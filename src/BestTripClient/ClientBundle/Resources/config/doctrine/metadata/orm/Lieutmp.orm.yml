@@ -1,0 +1,62 @@
+Lieutmp:
+    type: entity
+    table: lieutmp
+    indexes:
+        FKLieuxTMP307640:
+            columns:
+                - ID_Ville
+        ID_Rec:
+            columns:
+                - ID_Rec
+    id:
+        idLieux:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_lieux
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Type
+        adresse:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Adresse
+        nom:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Nom
+    manyToOne:
+        idVille:
+            targetEntity: Ville
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Ville:
+                    referencedColumnName: ID_Ville
+            orphanRemoval: false
+        idRec:
+            targetEntity: Recommandation
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                ID_Rec:
+                    referencedColumnName: ID_Recommandation
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

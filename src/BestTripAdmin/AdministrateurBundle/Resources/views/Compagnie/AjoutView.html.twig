@@ -1,0 +1,40 @@
+{# empty Twig template #}
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Ajouter Compagnie{% endblock %}
+{% block content %}
+    <label>Ajouter Compagnie :</label>
+{% endblock  %}
+{% block WarperContent %}
+
+    {% if form_errors(form.nom) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.nom) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.file) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.file) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.lien) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            {{ form_errors(form.lien) }}
+        </div>
+    {% endif %}
+    <form method="POST" {{ form_enctype(form) }} novalidate>
+        <label>Nom *</label>
+        {{ form_widget(form.nom) }}
+        <label>Type *</label>
+        {{ form_widget(form.type) }} 
+        <label>Logo *</label>
+        {{ form_widget(form.file) }} 
+        {{ form_errors(form.file) }}
+        <label>Lien *</label>
+        {{ form_widget(form.lien) }} 
+        <br>
+        {{ form(form) }}  
+    </form>
+{% endblock  %}

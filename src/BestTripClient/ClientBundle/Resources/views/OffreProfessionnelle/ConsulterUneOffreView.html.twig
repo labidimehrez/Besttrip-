@@ -1,0 +1,250 @@
+{# empty Twig template #}
+{% extends "ClientBundle::layout.html.twig" %}
+{% block pagetitle %}
+    <div class="page-title-container">
+        <div class="container">
+            <div class="page-title pull-left">
+                <h2 class="entry-title">Offre Professionnelle détaillé</h2>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block container %}
+    <div class="modal fade bs-example-modal-sme" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="overall-rating">
+                    <div class="alert alert-error">
+                        Message d'erreur. Vous Devez S'authentifier
+                    </div>
+                    <br><button type="submit" href="{{ path('login_user') }}" class="btn-large full-width sky-blue1"><a href="{{ path('login_user') }}">Se Connecter</a></button>
+                    <br> <br><button type="submit" class="btn-large full-width sky-blue1">S'inscrire</button>
+                    <br><br><center> <img src="{{ asset('bundles/Client/images/logo.png') }}" /></center>
+                    <br>
+
+                </div>                               
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="main" class="col-md-9">
+                <div class="tab-container style1" id="hotel-main-content">
+                    <ul class="tabs">
+                        <li class="active"><a data-toggle="tab" href="#photos-tab">photos</a></li>
+                        <li><a data-toggle="tab" href="#map-tab">map</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="photos-tab" class="tab-pane fade in active">
+                            <div class="photo-gallery style1" data-animation="slide" data-sync="#photos-tab .image-carousel">
+                                <ul class="slides">
+                                    {% if offre.photo=="" %}
+                                        <li><img src="{{ asset('uploads/nondisponible.jpg') }}" alt="" width="870px" height="530px"/></li>
+                                        {% else %}
+                                        <li><img src="{{ asset('uploads/OffreProfessionnelle/'~ offre.photo) }}" alt="" width="870px" height="530px"/></li>
+                                    {% endif %}
+                                        {% for image in img %} 
+                                        <li><img src="{{ asset('uploads/Ville/'~ image.lien) }}" alt="" width="870px" height="530px"/></li>
+                                        {% endfor %}               
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="map-tab" class="tab-pane fade">
+                        </div>
+                    </div>
+                </div>
+                <div id="hotel-features" class="tab-container">
+                    <ul class="tabs">
+                        <li class="active"><a href="#hotel-description" data-toggle="tab">Description</a></li>
+                        <li><a href="#hotel-write-review" data-toggle="tab">Evaluer Contenu</a></li>
+                        <li><a href="#hotel-availability" data-toggle="tab">Participer</a></li>
+
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="hotel-description">
+                            <div class="intro table-wrapper full-width hidden-table-sms">
+                                <div class="col-sm-5 col-lg-4 features table-cell">
+                                    <ul>
+
+                                        <li><label>Dte De debut:</label>{{ offre.dateDebut|date('Y-m-d') }}</li>
+                                        <li><label>Date De Fin:</label>{{ offre.dateFin|date('Y-m-d') }}</li>  
+                                        <li><label>Prix:</label>{{ offre.prix }}-{{ offre.devise }}</li>
+                                        <li><label>Nombre Participant:</label>{{ offre.nbMax }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-7 col-lg-8 features table-cell ">
+                                    <ul>
+                                        <li> <center> {{ offre.description|raw }} </center> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="hotel-write-review">
+                            <div class="main-rating table-wrapper full-width hidden-table-sms intro">
+                                <div class="table-cell col-sm-8">
+                                    <div class="overall-rating">
+                                        <h4>Evaluer ce contenu</h4>
+                                        {% if eva is empty %}
+                                            <div id="this" class="star-rating clearfix">
+                                                <div class="five-stars-container editable-rating" id="rating"></div>
+                                                <span class="status" id="stat"></span>
+                                                <input id="v" type="text" value="0" style="display: none;">
+
+
+                                            </div>
+                                        {% else %}
+                                            <p> Vous avez déja evaluer cet itineraire </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="hotel-availability">           
+                            <div class="update-search clearfix" id="hotel-signaler-review">
+                                <div class="col-md-5">
+
+                                    <div id="nbr">  <h4  class="title">Nombre de place restantes : {{ nbre }}  </h4></div>
+                                    <div class="row">
+                                        {% if is_granted('ROLE_Client') %}
+                                            {% if participations == null  %}
+                                                {% if counter < offre.nbMax %} 
+                                                    <div id="sign" class="row form-group">   
+                                                        <br>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                                        <button class="button btn-large dark-blue2" id="signal" >Participer</button>
+                                                    </div>
+
+                                                {% endif %}
+                                            {% elseif participations != null %}
+                                                <label><strong>Vous avez participez à cette offre </strong></label>
+                                            {% elseif counter == offre.nbMax %}
+                                                <label><strong>le nombre maximum de participation est atteint ,revenez ultérieurement</strong></label>
+
+                                            {% endif %}
+                                        {% else %}
+                                            <button class="button btn-large dark-blue2" id="signal" data-toggle="modal" data-target=".bs-example-modal-sme">Participer</button>
+
+                                        {% endif %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar col-md-3">
+                <article class="detailed-logo">
+                    <figure>
+                        <img width="114" height="85" src="{{ asset('uploads/Compagnie/'~ offre.idCompagnie.logo ) }}" alt="">
+                    </figure>
+                    <div class="details">
+                        <h2 class="box-title">{{ offre.idCompagnie.nom }}</h2>
+
+                        <div class="feedback clearfix">
+
+                            <p class="description">{{ offre.idCompagnie.type }}</p>
+
+                        </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    <div class="opacity-overlay" id="soap-popupbox" tabindex="-1" style="display: none;">
+        <div class="container">
+            <div class="popup-wrapper">
+                <div class="popup-content">
+                    <div id="show" class="travelo-login-box travelo-box" style="display: block;">
+                        <div class="login-social">
+                            <a href="#" class="button login-facebook"><i class="soap-icon-facebook"></i>Login with Facebook</a>
+                            <a href="#" class="button login-googleplus"><i class="soap-icon-googleplus"></i>Login with Google+</a>
+                        </div>
+
+                        <a href="#" class="button full-width btn-large">S'authentifier</a>
+                        <div class="seperator"><label>OU BIEN</label></div>
+                        <a href="#" class="button full-width btn-large">S'inscrire</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script type="text/javascript">
+                tjq(document).ready(function () {
+        tjq(".status").hide();
+                tjq("#rating").slider({
+        range: "min",
+                value: 0,
+                min: 0,
+                max: 100,
+                slide: function (event, ui) {
+                tjq(".status").show();
+                        if (ui.value <= 20) {
+                tjq(".status").text('Mauvais');
+                }
+                if (ui.value > 20 && ui.value <= 40) {
+                tjq(".status").text('Pas Mal');
+                }
+                if (ui.value > 40 && ui.value <= 60) {
+                tjq(".status").text('Bon');
+                }
+                if (ui.value > 60) {
+                tjq(".status").text('Excellent');
+                }
+                var vals = tjq('#v').val();
+                        tjq('#v').attr("value", ui.value);
+                        if (vals !== 0 && tjq("#bt").length === 0 && tjq("#btn").length === 0) {
+                tjq("#this").append('{% if is_granted('ROLE_Client') %}' +
+                        '&nbsp;&nbsp;&nbsp;<button id="bt" class="button btn-medium yellow ">Evaluer</button>' +
+                        '{% else %}' +
+                        '&nbsp;&nbsp;&nbsp;<a  class="button btn-medium yellow soap-popupbox" data-toggle="modal" data-target=".bs-example-modal-sme">Evaluer</a>' +
+                        '{% endif %}');
+                }
+                tjq("#bt").click(function () {
+                var xhr = null;
+                        var idO = {{ offre.idOffrep}};
+                        xhr = tjq.ajax({
+                        type: 'get',
+                                //url: 'http://localhost/BestTrip/web/app_dev.php/Client/evaluer/' + tjq('#v').val() + '/' + tjq('#idItin').val(),
+                                url: Routing.generate('client_evaluation_offre', {val: tjq('#v').val(), id: idO}),
+                                beforeSend: function () {
+                                console.log(tjq('#v').val());
+                                        console.log(idO);
+                                },
+                                success: function (json) {
+                                tjq('#this').remove();
+                                        tjq('.overall-rating').append("<p> Votre evaluation à été enregistrer avec succée </p>");
+                                }
+                        });
+                });
+                }
+        });
+                tjq("#signal").click(function () {
+        var idoff = {{ offre.idOffrep }};
+                var nrn = {{ nbre - 1 }} ;
+                tjq.ajax({
+                type: 'get',
+                        //url: 'http://localhost/BestTrip/web/app_dev.php/Client/evaluer/' + tjq('#v').val() + '/' + tjq('#idItin').val(),
+                        url: Routing.generate('client_participer_offre', {ido: idoff}),
+                        beforeSend: function () {
+
+                        console.log(idoff);
+                        },
+                        success: function (json) {
+                        tjq('#sign').empty();
+                                tjq('#sign').append("<p> Votre participation à été enregistrée avec succée </p>");
+                                tjq('#nbr').empty();
+                                tjq('#nbr').append("<h4  class='title'>Nombre de place restantes :   " + nrn + "   </h4>");
+                        }
+                });
+        });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,119 @@
+{# empty Twig template #}
+{% extends "AdministrateurBundle::layout.html.twig" %} 
+{% block title %}{{ parent() }}Modifier Lieu{% endblock %}
+{% block content %}
+    <label>Modifier Lieu :</label>
+{% endblock  %}
+{% block WarperContent %}
+       {% if form_errors(form.nom) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        {{ form_errors(form.nom) }}
+        </div>
+        {% endif %}
+         {% if form_errors(form.adresse) is not empty %}
+        <div class="alert alert-danger alert-dismissable">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+        {{ form_errors(form.adresse) }}
+        </div>
+        {% endif %}
+
+    <form method="POST" action="{{ path('administrateur_modifier_lieu',{id:lieu.idLieu}) }}" novalidate>
+        <label>Nom *</label>
+        {{ form_widget(form.nom) }}
+        <label>Adresse *</label>
+         <div id="locationField">
+        {{ form_widget(form.adresse) }} 
+         </div>
+        <label>Pays *</label>
+        <select class="form-control m-b" name="Pays" id="Pays" style=" width: 300px;">
+            <option value="0">-- Choisir Pays --</option> 
+            {% for pay in pays %}
+                <option value="{{ pay.idPays }}"
+                        {% if pay.idPays == paysChoisit.idPays %} selected {% endif %}
+                        >{{ pay.nom }}</option>
+            {% endfor %}
+        </select>
+        <label>Ville *</label>
+        <select class="form-control m-b" name="Ville" id="Ville" style=" width: 300px;">
+            <option value="">-- Choisir Ville --</option> 
+            {% for ville in villes %}
+                <option value="{{ ville.idVille }}"
+                        {% if ville.idVille == villeChoisit.idVille %} selected {% endif %}
+                        >{{ ville.nom }}</option>
+            {% endfor %}
+        </select>
+        <label>Type *</label>
+        {{ form_widget(form.type) }} 
+        <br>
+
+        <label title="Upload image file" for="besttripadmin_administrateurbundle_lieu_attachement_file" class="btn btn-primary">
+            {{ form_widget(form.attachement.file, {'full_name': form.attachement.file.vars.full_name ~ '[]' }) }}  
+            Upload new image
+        </label>  (Vous pouvez séléctionnez plusieurs photos ena appuiant sur ctrl)
+
+        <div></div>
+        {% if images != null  %}
+            <div class="image-box">
+                {% for image in images %}
+                    <a href="#" ><img src="{{ asset('uploads/Lieu/' ~ image.lien) }}" id="preview"></a>
+                    {% endfor %}
+            </div>
+        {% endif %}
+        <br><br>
+
+        {{ form(form) }}
+
+    </form>
+
+{% endblock  %}
+{% block script %}
+    <style>
+        #preview{
+            width: 100px;
+            height: 100px;
+            padding-right: 10px;
+        }
+
+        .image-box{
+            display: inline-block;
+            background-color: #ffffff;
+            color: inherit;
+            padding: 15px 20px 20px 20px;
+            border-color: #e7eaec;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script src="{{ asset('bundles/Administrateur/js/Autocom.js') }}"></script>
+    <script>
+
+        $(document).ready(function () {
+
+        });
+
+        $('#besttripadmin_administrateurbundle_lieu_attachement_file').on('change', function (e) {
+
+            var files = e.target.files;
+            var j = 0;
+            $.each(files, function (i, file) {
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onload = function (e) {
+                    j = j + 1;
+                    var template = '<a href="#" ><img src="' + e.target.result + '" id="preview"></a>';
+
+                    $('.image-box').append(template);
+                };
+            });
+            $('.image-box').show();
+        });
+
+
+
+    </script>
+{% endblock script %}

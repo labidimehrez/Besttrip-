@@ -1,0 +1,119 @@
+Utilisateur:
+    type: entity
+    table: utilisateur
+    uniqueConstraints:
+        EMail:
+            columns:
+                - EMail
+        Nom_Agence:
+            columns:
+                - Nom_Agence
+    id:
+        idUtilisateur:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: ID_Utilisateur
+            generator:
+                strategy: IDENTITY
+    fields:
+        email:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: EMail
+        motDePasse:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Mot_De_Passe
+        nom:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Nom
+        prenom:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Prenom
+        dateNaissance:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Naissance
+        sexe:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Sexe
+        telephone:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Telephone
+        photo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Photo
+        nomAgence:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Nom_Agence
+        adresse:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Adresse
+        logo:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Logo
+        type:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
+            column: Type
+        abbnewslettre:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: AbbNewslettre
+        etatCompte:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: Etat_Compte
+        dateAjout:
+            type: date
+            nullable: true
+            comment: ''
+            column: Date_Ajout
+    lifecycleCallbacks: {  }
